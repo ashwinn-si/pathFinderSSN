@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import Background from "../Components/Background";
 import {useState} from "react";
+
 
 function LoginPage(){
     const [email, setEmail] = useState("");
@@ -28,7 +30,10 @@ function LoginPage(){
                            <input type="password" required className="grow text-base-content w-[90%]" placeholder="Enter " onChange={e => setPassword(e.target.value)} />
                        </label>
                        <button type="submit" className="btn btn-primary px-6 py-2">Login</button>
-                       <p className="text-base-content">New User? <span className="text-primary font-[550]">Sign Up</span></p>
+                       <Link to="/SignUp">
+                            <p className="text-base-content">New User? <span className="text-primary font-[550]">Sign Up</span></p>
+                       </Link>
+                       
                    </form>
 
             </div>

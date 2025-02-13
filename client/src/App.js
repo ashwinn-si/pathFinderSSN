@@ -2,6 +2,7 @@ import {Route, Routes, BrowserRouter} from "react-router-dom";
 import LandingPage from "./Pages/LandingPage";
 import ThemeChanger from "./Components/ThemeChanger";
 import LoginPage from "./Pages/LoginPage";
+import SignUp from "./Pages/SignUp";
 import DashBoardPageNew from "./Pages/DashBoard/DashBoardPageNew";
 import DashBoardPageOld from "./Pages/DashBoard/DashBoardPageOld";
 import SelectGoalPage from "./Pages/SelectGoalPage";
@@ -9,19 +10,20 @@ import AssessmentPage from "./Pages/AssessmentPage";
 
 function App() {
   return (
-      <div>
-          <ThemeChanger />
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<LandingPage />}></Route>
-                <Route path="/login" element={<LoginPage />}></Route>
-                <Route path="/dashboard/new" element={<DashBoardPageNew />}></Route>
-                <Route path="/dashboard/old" element={<DashBoardPageOld />}></Route>
-                <Route path="/goalselection" element={<SelectGoalPage />}></Route>
-                <Route path="/assessment" element={<AssessmentPage />}></Route>
-            </Routes>
-        </BrowserRouter>
-      </div>
+    <div>
+      <ThemeChanger />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/dashboard/new" element={<DashBoardPageNew />}></Route>
+          <Route path="/dashboard/old" element={<DashBoardPageOld />}></Route>
+          <Route path="/goalselection" element={<SelectGoalPage />}></Route>
+          <Route path="/assessment" element={<AssessmentPage />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
