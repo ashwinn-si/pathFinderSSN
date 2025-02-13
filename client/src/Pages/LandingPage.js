@@ -6,6 +6,7 @@ function LandingPage() {
     return (
         <div className="w-screen h-screen relative flex justify-center items-center overflow-hidden">
             <Background />
+                
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-screen h-screen cursor-pointer flex justify-center items-center">
                 <div className="relative w-1/2 text-center">
                     <Header
@@ -27,9 +28,9 @@ function LandingPage() {
                         <Link to="/login">
                             <button className="btn btn-outline px-6 py-1 text-l custom-FontFamily">Login </button>
                         </Link>
-                        <button className="btn btn-outline px-6 py-1 text-l custom-FontFamily">
-                            Signup
-                        </button>
+                        <Link to="/signup">
+                            <button className="btn btn-outline px-6 py-1 text-l custom-FontFamily">SignUp </button>
+                        </Link>
                     </div>
                 </div>
             </div>

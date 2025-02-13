@@ -2,7 +2,7 @@ import {Route, Routes, BrowserRouter} from "react-router-dom";
 import LandingPage from "./Pages/LandingPage";
 import ThemeChanger from "./Components/ThemeChanger";
 import LoginPage from "./Pages/LoginPage";
-import SignUp from "./Pages/SignUp";
+import SignUpPage from "./Pages/SignUpPage";
 import DashBoardPageNew from "./Pages/DashBoard/DashBoardPageNew";
 import DashBoardPageOld from "./Pages/DashBoard/DashBoardPageOld";
 import SelectGoalPage from "./Pages/SelectGoalPage";
@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/signup" element={<SignUpPage />}></Route>
           <Route path="/dashboard/new" element={<DashBoardPageNew />}></Route>
           <Route path="/dashboard/old" element={<DashBoardPageOld />}></Route>
           <Route path="/goalselection" element={<SelectGoalPage />}></Route>

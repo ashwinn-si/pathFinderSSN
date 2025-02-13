@@ -1,20 +1,58 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Background from "../Components/Background";
 import {useState} from "react";
-
+import api from "./../AxiosProvider"
+import SuccessMessage from "../Components/InfoMessages/SuccessMessage";
+import LoaderMessage from "../Components/InfoMessages/LoaderMessage";
+import ErrorMessage from "../Components/InfoMessages/ErrorMessage";
 
 function LoginPage(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [messageFlag, setMessageFlag] = useState(null);
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate()
 
     function handleSubmit(e){
         e.preventDefault();
-        console.log(email,password)
+        setMessageFlag(0)
+        api.post("/api/auth/login",{
+            email,
+            password
+        }).then((response)=>{
+            setMessageFlag(1);
+            setTimeout(()=>{
+                navigate("/dashboard/old")
+            },2000)
+            
+        }).catch((err)=>{
+            if(err.response.status === 404){
+                setMessage("User Not Found");
+            }else if(err.response.status === 401){
+                setMessage("InCorrect Password");
+            }else{
+                setMessage("Internal Server Error");
+            }
+        }).finally(()=>{
+            setTimeout(()=>{
+                setMessage("");
+                setMessageFlag(null)
+            },2000)
+        })
     }
 
     return(
         <div className="w-screen h-screen relative flex justify-center items-center overflow-hidden">
             <Background />
+                {
+                    messageFlag === 1 && <SuccessMessage message = "Login Successful"/>
+                }
+                {
+                    messageFlag === 0 && <LoaderMessage message = "Checking Credentials"/>
+                }
+                {
+                    messageFlag === 2 && <ErrorMessage message = {message !== "" | "Server Issue"} />
+                }
             <div className=" w-[90%] max-w-[350px] md:max-w-[450px] lg:max-w-[500px]  h-auto md:h-[450px] bg-base-300 rounded-lg border-2 border-solid border-neutral shadow-primary shadow-[0_0_5px]  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-85 flex justify-start items-center flex-col">
                 <div className="h-[20%] w-full flex justify-center items-center mb-4">
                     <p className="text-center font-semibold text-primary text-2xl md:text-3xl">Login</p>

@@ -1,0 +1,151 @@
+import React, { useState} from 'react';
+import Background from "../Components/Background";
+import { Link } from 'react-router-dom';
+import api from "./../AxiosProvider"
+import { useNavigate } from 'react-router-dom';
+import SuccessMessage from "../Components/InfoMessages/SuccessMessage";
+import LoaderMessage from "../Components/InfoMessages/LoaderMessage";
+import ErrorMessage from "../Components/InfoMessages/ErrorMessage";
+
+function SignUpPage(){
+    const [email, setEmail] = useState("");
+    const [name , setName] = useState("");
+    const [password, setPassword] = useState("");
+    const [otp, setOTP] = useState("");
+    const [otpFlag, setOtpFlag] = useState(false)
+    const [messageFlag, setMessageFlag] = useState(null)
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate()
+
+    function handleSignUp(e){
+        e.preventDefault();
+        setMessageFlag(1);
+        api.post("/api/auth/signup",{
+            email,
+            otp
+        }).then((response) => {
+            if(response.status === 200){
+                setMessageFlag(1);
+                setTimeout(()=>{
+                    navigate("/goalselection")
+                },2000)
+                
+            }
+        }).catch((err)=>{
+            if(err.response.status === 401){
+                setMessage("Otp Incorrect")
+                setMessageFlag(2);
+            }else if(err.response.status === 404){
+                setMessage("User Not Found")
+                setMessageFlag(2);
+            }else{
+                setMessage("Internal Server Error")
+                setMessageFlag(2);
+            }
+        }).finally(()=>{
+            setTimeout(()=>{
+                setMessageFlag(null)
+                setMessage("");
+            },2000);
+        })
+    }
+
+    function handleOtpGnereation(e){
+        e.preventDefault()
+        
+        api.post("/api/auth/verifyotp",{
+            email,
+            password,
+            name
+        }).then((response) => {
+            setMessage(4);
+            console.log(response.data);
+        }).catch((err) =>{
+            if(err.response.status === 403){
+                setMessage("User Not Found")
+                setMessageFlag(2);
+            }else{
+                setMessage("Internal Server Error")
+                setMessageFlag(2);
+            }
+        }).finally(() => {
+            setOtpFlag(true);
+            setTimeout(()=>{
+                setMessageFlag(null)
+                setMessage("");
+            },[2000])
+        })
+    }
+
+
+
+
+    return(
+        <div className="w-screen h-screen relative flex justify-center items-center overflow-hidden">
+            <Background />
+                {
+                    messageFlag === 1 && <SuccessMessage message = "SignUp Successful"/>
+                }
+                {
+                    messageFlag === 4 && <SuccessMessage message = "Otp Generated"/>
+                }
+                {
+                    messageFlag === 0 && <LoaderMessage message = "Generating Otp"/>
+                }
+                {
+                    messageFlag === 2 && <ErrorMessage message = {message !== "" | "Server Issue"} />
+                }
+            <div className=" w-[90%] max-w-[350px] md:max-w-[450px] lg:max-w-[500px]  h-auto md:h-[450px] bg-base-300 rounded-lg border-2 border-solid border-neutral shadow-primary shadow-[0_0_5px]  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-85 flex justify-start items-center flex-col">
+                <div className="h-[20%] w-full flex justify-center items-center mb-4">
+                    <p className="text-center font-semibold text-primary text-2xl md:text-3xl">Sign Up</p>
+                </div>
+
+                   <form className="h-[80%] w-[80%] flex flex-col justify-evenly items-center " onSubmit={ otpFlag ? handleSignUp : handleOtpGnereation}>
+                        <label className="input input-bordered flex items-center gap-2 text-primary w-full rounded-xl my-3">
+                           Name
+                           <input type="text" required className="grow text-base-content w-[90%]" placeholder="Enter" onChange={(e) => setName(e.target.value)} />
+                       </label>
+                       <label className="input input-bordered flex items-center gap-2 text-primary w-full rounded-xl my-3">
+                           Email
+                           <input type="email" required className="grow text-base-content w-[90%]" placeholder="Enter" onChange={(e) => setEmail(e.target.value)} />
+                       </label>
+                       {
+                        !otpFlag && 
+                        <label className="input input-bordered flex items-center gap-2 text-primary w-full rounded-xl my-3">
+                           Password
+                           <input type="text" required className="grow text-base-content w-[90%]" placeholder="Enter " onChange={e => setPassword(e.target.value)} />
+                       </label>
+                       }
+                       {
+                        otpFlag &&
+                        <label className="input input-bordered flex items-center gap-2 text-primary w-full rounded-xl my-3">
+                           OTP
+                           <input type="text" required className="grow text-base-content w-[90%]" placeholder="Enter " onChange={e => setOTP(e.target.value)} />
+                       </label>
+                       }
+                       
+                       {
+                        !otpFlag
+                        &&
+                        <button type="submit" className="btn btn-primary px-6 py-2" >Generate OTP</button>
+                       }
+                       
+                       {
+                        otpFlag && 
+                        <button type="submit" className= "btn btn-primary px-6 py-2" >SignUp</button>
+                       }
+                       
+
+                        <Link to="/login"> 
+                            <p className="text-base-content">Already User? <span className="text-primary font-[550]">Login</span></p>
+                        </Link>
+                       
+                   </form>
+
+            </div>
+        </div>
+
+    )
+}
+
+export default SignUpPage;
