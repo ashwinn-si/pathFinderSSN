@@ -6,20 +6,28 @@ const ThemeChanger = () => {
     const [selectedTheme, setSelectedTheme] = useState("lofi");
 
     function handleThemeToggle() {
-        const newTheme = selectedTheme === "lofi" ? "dim" : "lofi";
-        document.documentElement.setAttribute("data-theme", newTheme);
-        setSelectedTheme(newTheme);
+      const newTheme = selectedTheme === "lofi" ? "dim" : "lofi";
+      document.documentElement.setAttribute("data-theme", newTheme);
+      console.log(document.documentElement.getAttribute("data-theme"));
+      setSelectedTheme(newTheme);
     }
 
     return (
-        <div className="fixed top-5 lg:top-6 right-[4%] z-[9996]">
-            <button
-                className="btn m-1 border-primary border-[1px] flex items-center gap-2 px-4 py-2"
-                onClick={handleThemeToggle}
-            >
-                {selectedTheme === "lofi" ? <FiSun className="text-yellow-500" /> : <FiMoon className="text-gray-500" />}
-            </button>
-        </div>
+      <div className="fixed top-5 lg:top-6 right-[4%] z-[9996]">
+        <button
+          className={`btn m-1 border-primary border-[1px] rounded-lg flex items-center gap-2 px-4 py-2 
+    ${selectedTheme === "lofi" ? "bg-gray-300 border-2 border-error" : "bg-gray-900 border-primary text-white"}
+        `}
+
+          onClick={handleThemeToggle}
+        >
+          {selectedTheme === "lofi" ? (
+            <FiSun className="text-yellow-600" />
+          ) : (
+            <FiMoon className="text-gray-500" />
+          )}
+        </button>
+      </div>
     );
 };
 
