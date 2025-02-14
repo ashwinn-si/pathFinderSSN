@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Background from "../Components/Background";
 import { Link } from 'react-router-dom';
 import api from "./../AxiosProvider"
@@ -14,8 +14,8 @@ function SignUpPage(){
     const [otp, setOTP] = useState("");
     const [otpFlag, setOtpFlag] = useState(false)
     const [messageFlag, setMessageFlag] = useState(null)
-    const [message, setMessage] = useState("");
     const navigate = useNavigate()
+
 
     function handleSignUp(e){
         e.preventDefault();
@@ -29,50 +29,44 @@ function SignUpPage(){
                 setTimeout(()=>{
                     navigate("/goalselection")
                 },2000)
-                
             }
         }).catch((err)=>{
             if(err.response.status === 401){
-                setMessage("Otp Incorrect")
-                setMessageFlag(2);
+                setMessageFlag(5)
             }else if(err.response.status === 404){
-                setMessage("User Not Found")
-                setMessageFlag(2);
+                setMessageFlag(6)
             }else{
-                setMessage("Internal Server Error")
-                setMessageFlag(2);
+                setMessageFlag(2)
             }
         }).finally(()=>{
             setTimeout(()=>{
                 setMessageFlag(null)
-                setMessage("");
+
             },2000);
         })
     }
 
     function handleOtpGnereation(e){
         e.preventDefault()
-        
+        setMessageFlag(0)
         api.post("/api/auth/verifyotp",{
             email,
             password,
             name
         }).then((response) => {
-            setMessage(4);
-            console.log(response.data);
+            setMessageFlag(4)
+            setOtpFlag(true)
         }).catch((err) =>{
+
             if(err.response.status === 403){
-                setMessage("User Not Found")
-                setMessageFlag(2);
+                setMessageFlag(7)
             }else{
-                setMessage("Internal Server Error")
-                setMessageFlag(2);
+                setMessageFlag(2)
             }
         }).finally(() => {
-            setOtpFlag(true);
             setTimeout(()=>{
                 setMessageFlag(null)
-                setMessage("");
+
             },[2000])
         })
     }
@@ -93,7 +87,16 @@ function SignUpPage(){
                     messageFlag === 0 && <LoaderMessage message = "Generating Otp"/>
                 }
                 {
-                    messageFlag === 2 && <ErrorMessage message = {message !== "" | "Server Issue"} />
+                    messageFlag === 2 && <ErrorMessage message = "Server Issue"  />
+                }
+                {
+                    messageFlag === 5 && <ErrorMessage message = "Otp Incorrect"  />
+                }
+                {
+                    messageFlag === 6 && <ErrorMessage message = "User Not Found"  />
+                }
+                {
+                    messageFlag === 7 && <ErrorMessage message = "User Already Exist"  />
                 }
             <div className=" w-[90%] max-w-[350px] md:max-w-[450px] lg:max-w-[500px]  h-auto md:h-[450px] bg-base-300 rounded-lg border-2 border-solid border-neutral shadow-primary shadow-[0_0_5px]  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-85 flex justify-start items-center flex-col">
                 <div className="h-[20%] w-full flex justify-center items-center mb-4">

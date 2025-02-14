@@ -10,7 +10,6 @@ function LoginPage(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [messageFlag, setMessageFlag] = useState(null);
-    const [message, setMessage] = useState("");
     const navigate = useNavigate()
 
     function handleSubmit(e){
@@ -27,15 +26,15 @@ function LoginPage(){
             
         }).catch((err)=>{
             if(err.response.status === 404){
-                setMessage("User Not Found");
+                setMessageFlag(3)
             }else if(err.response.status === 401){
-                setMessage("InCorrect Password");
+                setMessageFlag(4)
             }else{
-                setMessage("Internal Server Error");
+                setMessageFlag(2)
             }
         }).finally(()=>{
             setTimeout(()=>{
-                setMessage("");
+
                 setMessageFlag(null)
             },2000)
         })
@@ -51,7 +50,13 @@ function LoginPage(){
                     messageFlag === 0 && <LoaderMessage message = "Checking Credentials"/>
                 }
                 {
-                    messageFlag === 2 && <ErrorMessage message = {message !== "" | "Server Issue"} />
+                    messageFlag === 2 && <ErrorMessage message = "Server Issue" />
+                }
+                {
+                    messageFlag === 3 && <ErrorMessage message = "User Not Found" />
+                }
+                {
+                    messageFlag === 4 && <ErrorMessage message = "Incorrect Password" />
                 }
             <div className=" w-[90%] max-w-[350px] md:max-w-[450px] lg:max-w-[500px]  h-auto md:h-[450px] bg-base-300 rounded-lg border-2 border-solid border-neutral shadow-primary shadow-[0_0_5px]  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-85 flex justify-start items-center flex-col">
                 <div className="h-[20%] w-full flex justify-center items-center mb-4">
