@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import Background from "../Components/Background";
 import { Link } from 'react-router-dom';
 import api from "./../AxiosProvider"
@@ -6,72 +6,85 @@ import { useNavigate } from 'react-router-dom';
 import SuccessMessage from "../Components/InfoMessages/SuccessMessage";
 import LoaderMessage from "../Components/InfoMessages/LoaderMessage";
 import ErrorMessage from "../Components/InfoMessages/ErrorMessage";
+import {formReducer, INTIAL_STATE} from "../Utilities/Reducers/SignUpPageReducer"
 
 function SignUpPage(){
-    const [email, setEmail] = useState("");
-    const [name , setName] = useState("");
-    const [password, setPassword] = useState("");
-    const [otp, setOTP] = useState("");
-    const [otpFlag, setOtpFlag] = useState(false)
+    // const [email, setEmail] = useState("");
+    // const [name , setName] = useState("");
+    // const [password, setPassword] = useState("");
+    // const [otp, setOTP] = useState("");
+
+    // const [otpFlag, setOtpFlag] = useState(false)
     const [messageFlag, setMessageFlag] = useState(null)
     const navigate = useNavigate()
 
+    const [state, dispatch] = useReducer(formReducer, INTIAL_STATE);
+
 
     function handleSignUp(e){
-        e.preventDefault();
-        setMessageFlag(1);
-        api.post("/api/auth/signup",{
-            email,
-            otp
-        }).then((response) => {
-            if(response.status === 200){
-                setMessageFlag(1);
-                setTimeout(()=>{
-                    navigate("/goalselection")
-                },2000)
-            }
-        }).catch((err)=>{
-            if(err.response.status === 401){
-                setMessageFlag(5)
-            }else if(err.response.status === 404){
-                setMessageFlag(6)
-            }else{
-                setMessageFlag(2)
-            }
-        }).finally(()=>{
-            setTimeout(()=>{
-                setMessageFlag(null)
+        console.log("SIGINI UP")
+        // e.preventDefault();
+        // setMessageFlag(1);
+        // api.post("/api/auth/signup",{
+        //     email,
+        //     otp
+        // }).then((response) => {
+        //     if(response.status === 200){
+        //         setMessageFlag(1);
+        //         setTimeout(()=>{
+        //             navigate("/goalselection")
+        //         },2000)
+        //     }
+        // }).catch((err)=>{
+        //     if(err.response.status === 401){
+        //         setMessageFlag(5)
+        //     }else if(err.response.status === 404){
+        //         setMessageFlag(6)
+        //     }else{
+        //         setMessageFlag(2)
+        //     }
+        // }).finally(()=>{
+        //     setTimeout(()=>{
+        //         setMessageFlag(null)
 
-            },2000);
-        })
+        //     },2000);
+        // })
     }
 
     function handleOtpGnereation(e){
-        e.preventDefault()
-        setMessageFlag(0)
-        api.post("/api/auth/verifyotp",{
-            email,
-            password,
-            name
-        }).then((response) => {
-            setMessageFlag(4)
-            setOtpFlag(true)
-        }).catch((err) =>{
+        console.log("GENERATE OTP>>")
+        // e.preventDefault()
+        // setMessageFlag(0)
+        // api.post("/api/auth/verifyotp",{
+        //     email,
+        //     password,
+        //     name
+        // }).then((response) => {
+        //     setMessageFlag(4)
+        //     setOtpFlag(true)
+        // }).catch((err) =>{
 
-            if(err.response.status === 403){
-                setMessageFlag(7)
-            }else{
-                setMessageFlag(2)
-            }
-        }).finally(() => {
-            setTimeout(()=>{
-                setMessageFlag(null)
+        //     if(err.response.status === 403){
+        //         setMessageFlag(7)
+        //     }else{
+        //         setMessageFlag(2)
+        //     }
+        // }).finally(() => {
+        //     setTimeout(()=>{
+        //         setMessageFlag(null)
 
-            },[2000])
+        //     },[2000])
+        // })
+    }
+
+    const handleInputChange = e =>{
+        dispatch({
+            type: "INPUT_CHANGE",
+            payload:{name :e.target.name, value: e.target.value}
         })
     }
 
-
+    console.log(state)
 
 
     return(
@@ -103,38 +116,38 @@ function SignUpPage(){
                     <p className="text-center font-semibold text-primary text-2xl md:text-3xl">Sign Up</p>
                 </div>
 
-                   <form className="h-[80%] w-[80%] flex flex-col justify-evenly items-center " onSubmit={ otpFlag ? handleSignUp : handleOtpGnereation}>
+                   <form className="h-[80%] w-[80%] flex flex-col justify-evenly items-center " onSubmit={ state.otpFlag ? handleSignUp : handleOtpGnereation}>
                         <label className="input input-bordered flex items-center gap-2 text-primary w-full rounded-xl my-3">
                            Name
-                           <input type="text" required className="grow text-base-content w-[90%]" placeholder="Enter" onChange={(e) => setName(e.target.value)} />
+                           <input name="username" type="text" required className="grow text-base-content w-[90%]" placeholder="Enter" onChange={handleInputChange} />
                        </label>
                        <label className="input input-bordered flex items-center gap-2 text-primary w-full rounded-xl my-3">
                            Email
-                           <input type="email" required className="grow text-base-content w-[90%]" placeholder="Enter" onChange={(e) => setEmail(e.target.value)} />
+                           <input name='email' type="email" required className="grow text-base-content w-[90%]" placeholder="Enter" onChange={handleInputChange} />
                        </label>
                        {
-                        !otpFlag && 
+                        !state.otpFlag && 
                         <label className="input input-bordered flex items-center gap-2 text-primary w-full rounded-xl my-3">
                            Password
-                           <input type="text" required className="grow text-base-content w-[90%]" placeholder="Enter " onChange={e => setPassword(e.target.value)} />
+                           <input name='password' type="text" required className="grow text-base-content w-[90%]" placeholder="Enter " onChange={handleInputChange} />
                        </label>
                        }
                        {
-                        otpFlag &&
+                        state.otpFlag &&
                         <label className="input input-bordered flex items-center gap-2 text-primary w-full rounded-xl my-3">
                            OTP
-                           <input type="text" required className="grow text-base-content w-[90%]" placeholder="Enter " onChange={e => setOTP(e.target.value)} />
+                           <input name='otp' type="text" required className="grow text-base-content w-[90%]" placeholder="Enter " onChange={handleInputChange} />
                        </label>
                        }
                        
                        {
-                        !otpFlag
+                        !state.otpFlag
                         &&
                         <button type="submit" className="btn btn-primary px-6 py-2" >Generate OTP</button>
                        }
                        
                        {
-                        otpFlag && 
+                        state.otpFlag && 
                         <button type="submit" className= "btn btn-primary px-6 py-2" >SignUp</button>
                        }
                        
