@@ -13,80 +13,78 @@ const Mailtransporter = nodeMailer.createTransport({
 
 function nodeMailerSendMailer(to , OTP){
     const boilerTemplate = `
-    <div style="
-        font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-        line-height: 1.6; 
-        padding: 20px; 
-        background-color: #0F172A; 
-        border: 1px solid #1E293B; 
-        border-radius: 12px;
-        max-width: 600px; 
-        margin: auto; 
-        color: #f1f1f1;
-    ">
-        <h2 style="
-            background: linear-gradient(135deg, #60A5FA, #A855F7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center; 
-            font-size: 2em; 
-            margin-bottom: 25px; 
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        ">
-            Welcome to SkillPath
-        </h2>
-        <p style="
-            font-size: 1.1em; 
-            margin-bottom: 15px; 
-            text-align: center; 
-            color: #E2E8F0;
-            font-weight: 300;
-            letter-spacing: 0.2px;
-        ">
-            Your journey to mastery begins here! To get started with your personalized learning roadmap, please verify your account using this code:
-        </p>
-        <p style="
-            font-size: 2.2em; 
-            font-weight: 600; 
-            background: linear-gradient(135deg, #60A5FA, #A855F7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center; 
-            margin: 25px 0;
-            padding: 20px;
-            background-color: #1E293B;
-            border-radius: 8px;
-            letter-spacing: 3px;
-            font-family: 'SF Mono', 'Consolas', monospace;
-            border: 1px solid #334155;
-        ">
-            ${OTP}
-        </p>
-        <p style="
-            font-size: 1em; 
-            text-align: center; 
-            color: #94A3B8; 
-            font-weight: 300;
-            letter-spacing: 0.2px;
-            line-height: 1.8;
-        ">
-            Enter this code to unlock your customized learning path. Together, we'll map out your route to success. If you didn't request this verification, please disregard this message.
-        </p>
-        <div style="
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 1px solid #1E293B;
-            color: #64748B;
-            font-size: 0.95em;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        ">
-            🎯 Chart Your Course • Build Your Skills • Master Your Goals
-        </div>
-    </div>
-`;
+     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#111111" style="background: #111111;">
+        <tr>
+            <td align="center" style="padding: 40px 10px;">
+                <!-- Content Table -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0"
+                    style="max-width: 600px; background-color: #201e1e; border-radius: 16px; border: 1px solid #333333; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
+
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="padding: 40px 40px;">
+                            <h1 style="color: #FFFFFF; font-size: 28px; font-weight: 700; margin: 0;">
+                                Welcome to SkillPath</h1>
+                        </td>
+                    </tr>
+
+                    <!-- Main Content -->
+                    <tr>
+                        <td align="center" style="padding: 20px 40px;">
+                            <p style="color: #F5F5F5; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0; text-align: center;">
+                                Your journey to mastery begins here! To get started with your personalized learning
+                                roadmap, please verify your account using this code:
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- OTP Code -->
+                    <tr>
+                        <td align="center" style="padding: 10px 40px;">
+                            <div style="background-color: #2A2A2A; border: 1px solid #404040; border-radius: 12px; padding: 20px; margin: 10px 0;">
+                                <span style="font-family: 'Courier New', monospace; font-size: 32px; font-weight: 600; letter-spacing: 4px; color: #FFFFFF;">${OTP}</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Additional Info -->
+                    <tr>
+                        <td align="center" style="padding: 20px 40px;">
+                            <p style="color: #E0E0E0; font-size: 16px; line-height: 1.6; margin: 0; text-align: center;">
+                                Enter this code to unlock your customized learning path. Together, we'll map out your
+                                route to success.
+                            </p>
+                            <p style="color: #B0B0B0; font-size: 14px; line-height: 1.6; margin: 20px 0 0 0; text-align: center;">
+                                If you didn't request this verification, please disregard this message.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="padding: 30px 40px;">
+                            <div style="border-top: 1px solid #333333; padding-top: 20px; text-align: center;">
+                                <p style="color: #808080; font-size: 14px; margin: 0; text-align: center;">
+                                    🎯 Chart Your Course • Build Your Skills • Master Your Goals
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Footer Note -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px;">
+                    <tr>
+                        <td align="center" style="padding: 20px; text-align: center;">
+                            <p style="color: #666666; font-size: 12px; margin: 0; text-align: center;">
+                                © 2025 SkillPath. All rights reserved.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>`;
 
 
 
