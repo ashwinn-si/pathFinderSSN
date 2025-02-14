@@ -14,51 +14,77 @@ const Mailtransporter = nodeMailer.createTransport({
 function nodeMailerSendMailer(to , OTP){
     const boilerTemplate = `
     <div style="
-        font-family: Arial, sans-serif; 
+        font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
         line-height: 1.6; 
-        color: #333; 
         padding: 20px; 
-        background-color: #000; 
-        border: 1px solid #444; 
-        border-radius: 8px;
+        background-color: #0F172A; 
+        border: 1px solid #1E293B; 
+        border-radius: 12px;
         max-width: 600px; 
         margin: auto; 
         color: #f1f1f1;
     ">
         <h2 style="
-            color: #fff; 
+            background: linear-gradient(135deg, #60A5FA, #A855F7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-align: center; 
-            font-size: 1.8em; 
-            margin-bottom: 20px; 
-            font-weight: bold;
+            font-size: 2em; 
+            margin-bottom: 25px; 
+            font-weight: 700;
+            letter-spacing: -0.5px;
         ">
-            Welcome to Program Tracker
+            Welcome to SkillPath
         </h2>
         <p style="
             font-size: 1.1em; 
-            margin-bottom: 10px; 
+            margin-bottom: 15px; 
             text-align: center; 
-            color: #ccc;
+            color: #E2E8F0;
+            font-weight: 300;
+            letter-spacing: 0.2px;
         ">
-            We are thrilled to have you on board! Your verification code is:
+            Your journey to mastery begins here! To get started with your personalized learning roadmap, please verify your account using this code:
         </p>
         <p style="
-            font-size: 2em; 
-            font-weight: bold; 
-            color: #f5f5f5; 
+            font-size: 2.2em; 
+            font-weight: 600; 
+            background: linear-gradient(135deg, #60A5FA, #A855F7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-align: center; 
-            margin: 20px 0;
+            margin: 25px 0;
+            padding: 20px;
+            background-color: #1E293B;
+            border-radius: 8px;
+            letter-spacing: 3px;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            border: 1px solid #334155;
         ">
             ${OTP}
         </p>
         <p style="
             font-size: 1em; 
             text-align: center; 
-            color: #bbb; 
+            color: #94A3B8; 
             font-weight: 300;
+            letter-spacing: 0.2px;
+            line-height: 1.8;
         ">
-            Enter this code in the Website to verify your account. If you didn’t request this, please ignore this message.
+            Enter this code to unlock your customized learning path. Together, we'll map out your route to success. If you didn't request this verification, please disregard this message.
         </p>
+        <div style="
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #1E293B;
+            color: #64748B;
+            font-size: 0.95em;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        ">
+            🎯 Chart Your Course • Build Your Skills • Master Your Goals
+        </div>
     </div>
 `;
 

@@ -20,6 +20,7 @@ const verifyOtpController = async(req, res) => {
             name,
             otp,
         })
+        await newUser.save();
         await nodeMailerSendMailer(email,otp);
         res.status(200).json({message : "otp generated"})
 
