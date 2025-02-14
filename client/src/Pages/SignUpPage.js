@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import React, {useReducer} from 'react';
 import Background from "../Components/Background";
 import { Link } from 'react-router-dom';
 import api from "./../AxiosProvider"
@@ -9,72 +9,65 @@ import ErrorMessage from "../Components/InfoMessages/ErrorMessage";
 import {formReducer, INTIAL_STATE} from "../Utilities/Reducers/SignUpPageReducer"
 
 function SignUpPage(){
-    // const [email, setEmail] = useState("");
-    // const [name , setName] = useState("");
-    // const [password, setPassword] = useState("");
-    // const [otp, setOTP] = useState("");
-
-    // const [otpFlag, setOtpFlag] = useState(false)
-    const [messageFlag, setMessageFlag] = useState(null)
     const navigate = useNavigate()
-
     const [state, dispatch] = useReducer(formReducer, INTIAL_STATE);
 
 
     function handleSignUp(e){
-        console.log("SIGINI UP")
-        // e.preventDefault();
-        // setMessageFlag(1);
-        // api.post("/api/auth/signup",{
-        //     email,
-        //     otp
-        // }).then((response) => {
-        //     if(response.status === 200){
-        //         setMessageFlag(1);
-        //         setTimeout(()=>{
-        //             navigate("/goalselection")
-        //         },2000)
-        //     }
-        // }).catch((err)=>{
-        //     if(err.response.status === 401){
-        //         setMessageFlag(5)
-        //     }else if(err.response.status === 404){
-        //         setMessageFlag(6)
-        //     }else{
-        //         setMessageFlag(2)
-        //     }
-        // }).finally(()=>{
-        //     setTimeout(()=>{
-        //         setMessageFlag(null)
+        e.preventDefault();
+        dispatch({type: "SET_MESSAGE_FLAG", payload:1})
+        api.post("/api/auth/signup",{
+            email: state.email,
+            otp: state.otp
+        }).then((response) => {
+            if(response.status === 200){
+                dispatch({ type: "SET_MESSAGE_FLAG", payload: 1 });
+                setTimeout(()=>{
+                    navigate("/goalselection")
+                },2000)
+            }
+        }).catch((err)=>{
+            console.log(err)
+            if(err.response.status === 401){
+                dispatch({ type: "SET_MESSAGE_FLAG", payload: 5 });
 
-        //     },2000);
-        // })
+            }else if(err.response.status === 404){
+                dispatch({ type: "SET_MESSAGE_FLAG", payload: 6 });
+            }else{
+                dispatch({ type: "SET_MESSAGE_FLAG", payload: 2 });
+            }
+        }).finally(()=>{
+            setTimeout(()=>{
+                dispatch({type: "SET_MESSAGE_FLAG", payload: null})
+
+            },2000);
+        })
     }
 
     function handleOtpGnereation(e){
-        console.log("GENERATE OTP>>")
-        // e.preventDefault()
-        // setMessageFlag(0)
-        // api.post("/api/auth/verifyotp",{
-        //     email,
-        //     password,
-        //     name
-        // }).then((response) => {
-        //     setMessageFlag(4)
-        //     setOtpFlag(true)
-        // }).catch((err) =>{
+        e.preventDefault()
+        dispatch({ type: "SET_MESSAGE_FLAG", payload: 0 });
+        api.post("/api/auth/verifyotp",{
+            email: state.email,
+            password: state.password,
+            name: state.username
 
-        //     if(err.response.status === 403){
-        //         setMessageFlag(7)
-        //     }else{
-        //         setMessageFlag(2)
-        //     }
-        // }).finally(() => {
-        //     setTimeout(()=>{
-        //         setMessageFlag(null)
+        }).then((response) => {
+            dispatch({ type: "SET_MESSAGE_FLAG", payload: 4 });            
+            dispatch({type: "TOGGLE_OTP_FLAG"})
 
-        //     },[2000])
-        // })
+        }).catch((err) =>{
+            if(err.response.status === 403){
+                dispatch({ type: "SET_MESSAGE_FLAG", payload: 7 });
+            }else{
+                dispatch({ type: "SET_MESSAGE_FLAG", payload: 2 });
+            }
+
+        }).finally(() => {
+            setTimeout(()=>{
+                dispatch({ type: "SET_MESSAGE_FLAG", payload: null });
+            },2000)
+        })
     }
 
     const handleInputChange = e =>{
@@ -84,32 +77,30 @@ function SignUpPage(){
         })
     }
 
-    console.log(state)
-
 
     return(
         <div className="w-screen h-screen relative flex justify-center items-center overflow-hidden">
             <Background />
                 {
-                    messageFlag === 1 && <SuccessMessage message = "SignUp Successful"/>
+                    state.messageFlag === 1 && <SuccessMessage message = "SignUp Successful"/>
                 }
                 {
-                    messageFlag === 4 && <SuccessMessage message = "Otp Generated"/>
+                    state.messageFlag === 4 && <SuccessMessage message = "Otp Generated"/>
                 }
                 {
-                    messageFlag === 0 && <LoaderMessage message = "Generating Otp"/>
+                    state.messageFlag === 0 && <LoaderMessage message = "Generating Otp"/>
                 }
                 {
-                    messageFlag === 2 && <ErrorMessage message = "Server Issue"  />
+                    state.messageFlag === 2 && <ErrorMessage message = "Server Issue"  />
                 }
                 {
-                    messageFlag === 5 && <ErrorMessage message = "Otp Incorrect"  />
+                    state.messageFlag === 5 && <ErrorMessage message = "Otp Incorrect"  />
                 }
                 {
-                    messageFlag === 6 && <ErrorMessage message = "User Not Found"  />
+                    state.messageFlag === 6 && <ErrorMessage message = "User Not Found"  />
                 }
                 {
-                    messageFlag === 7 && <ErrorMessage message = "User Already Exist"  />
+                    state.messageFlag === 7 && <ErrorMessage message = "User Already Exist"  />
                 }
             <div className=" w-[90%] max-w-[350px] md:max-w-[450px] lg:max-w-[500px]  h-auto md:h-[450px] bg-base-300 rounded-lg border-2 border-solid border-neutral shadow-primary shadow-[0_0_5px]  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-85 flex justify-start items-center flex-col">
                 <div className="h-[20%] w-full flex justify-center items-center mb-4">
@@ -143,12 +134,12 @@ function SignUpPage(){
                        {
                         !state.otpFlag
                         &&
-                        <button type="submit" className="btn btn-primary px-6 py-2" >Generate OTP</button>
+                        <button type="submit" className="btn btn-primary px-6 py-2" onClick={handleOtpGnereation} >Generate OTP</button>
                        }
                        
                        {
                         state.otpFlag && 
-                        <button type="submit" className= "btn btn-primary px-6 py-2" >SignUp</button>
+                        <button type="submit" className= "btn btn-primary px-6 py-2" onClick={handleSignUp}>SignUp</button>
                        }
                        
 

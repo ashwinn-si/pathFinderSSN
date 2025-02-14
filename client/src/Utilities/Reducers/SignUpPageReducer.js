@@ -3,24 +3,29 @@ export const INTIAL_STATE = {
     username: "",
     password: "",
     otp: "",
-    otpFlag: false
+    otpFlag: false,
+    messageFlag: null
 }
 
 export const formReducer = (state, action) => {
-    switch(action.type){
-        case "INPUT_CHANGE":
-            return{
-                ...state,
-                [action.payload.name]: action.payload.value
-            }
-        case "TOGGLE_FLAG":
-            return{
-                ...state,
-                otpFlag: !state.otpFlag
-            }
-        default:
-            return state;        
-
+    switch (action.type) {
+      case "INPUT_CHANGE":
+        return {
+          ...state,
+          [action.payload.name]: action.payload.value,
+        };
+      case "TOGGLE_OTP_FLAG":
+        return {
+          ...state,
+          otpFlag: !state.otpFlag,
+        };
+      case "SET_MESSAGE_FLAG" :
+        return{
+            ...state,
+            messageFlag: action.payload
+        }
+      default:
+        return state;
     }
 
 }
