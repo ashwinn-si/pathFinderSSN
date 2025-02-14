@@ -6,11 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import SuccessMessage from "../Components/InfoMessages/SuccessMessage";
 import LoaderMessage from "../Components/InfoMessages/LoaderMessage";
 import ErrorMessage from "../Components/InfoMessages/ErrorMessage";
-import {formReducer, INTIAL_STATE} from "../Utilities/Reducers/SignUpPageReducer"
+import {signUpFormReducer, INTIAL_STATE} from "../Utilities/Reducers/SignUpPageReducer"
 
 function SignUpPage(){
     const navigate = useNavigate()
-    const [state, dispatch] = useReducer(formReducer, INTIAL_STATE);
+    const [state, dispatch] = useReducer(signUpFormReducer, INTIAL_STATE);
 
 
     function handleSignUp(e){

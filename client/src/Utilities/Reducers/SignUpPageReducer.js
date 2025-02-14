@@ -7,7 +7,7 @@ export const INTIAL_STATE = {
     messageFlag: null
 }
 
-export const formReducer = (state, action) => {
+export const signUpFormReducer = (state, action) => {
     switch (action.type) {
       case "INPUT_CHANGE":
         return {
