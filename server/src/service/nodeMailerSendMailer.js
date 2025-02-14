@@ -24,7 +24,7 @@ function nodeMailerSendMailer(to , OTP){
                     <tr>
                         <td align="center" style="padding: 40px 40px;">
                             <h1 style="color: #FFFFFF; font-size: 28px; font-weight: 700; margin: 0;">
-                                Welcome to SkillPath</h1>
+                                Welcome to pathFinder</h1>
                         </td>
                     </tr>
 
@@ -77,7 +77,7 @@ function nodeMailerSendMailer(to , OTP){
                     <tr>
                         <td align="center" style="padding: 20px; text-align: center;">
                             <p style="color: #666666; font-size: 12px; margin: 0; text-align: center;">
-                                © 2025 SkillPath. All rights reserved.
+                                © 2025 pathFinder. All rights reserved.
                             </p>
                         </td>
                     </tr>

@@ -23,7 +23,7 @@ function SignUpPage(){
             if(response.status === 200){
                 dispatch({ type: "SET_MESSAGE_FLAG", payload: 1 });
                 setTimeout(()=>{
-                    navigate("/goalselection")
+                    navigate(`/goalselection/${state.email}`);
                 },2000)
             }
         }).catch((err)=>{

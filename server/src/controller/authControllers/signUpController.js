@@ -1,5 +1,5 @@
 const { error } = require("console");
-const loginModel = require("./../../models/userModel")
+const loginModel = require("../../models/userModel")
 
 const signUpController = async(req,res) =>{
     const {email, otp} = req.body;

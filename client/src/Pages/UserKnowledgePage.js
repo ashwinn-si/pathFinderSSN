@@ -1,15 +1,23 @@
 import Background from "../Components/Background";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import StarRating from "../Components/StarRating";
+import api from ".././AxiosProvider"
+import {useParams} from "react-router-dom";
 
 function UserKnowledgePage(){
-    const [topics, setTopics] = useState({
-        "HTML": 0,
-        "CSS": 0,
-        "JS": 0,
-        "FrameWorks": 0,
-        "Extra Libs": 0,
-    });
+    const email = useParams().email;
+    const [topics, setTopics] = useState(null);
+
+    useEffect(()=>{
+        api.get(`/api/user/getSkill/${email}`).then((response) => {
+            const data = response.data.data;
+            const currentData = {}
+            data.map((item) => {
+                currentData[item] = 0;
+            })
+            setTopics(currentData);
+        })
+    },[email])
 
 
     const handleRatingChange = (topic, newValue) => {
@@ -33,22 +41,26 @@ function UserKnowledgePage(){
                         </p>
                     </div>
                     <div className="w-[90%] grid grid-cols-1 gap-4 items-center justify-center my-2">
-                        {Object.entries(topics).map(([topic, value], index) => (
-                            <div key={index} className="w-full grid grid-cols-2 gap-4 items-center justify-center my-2">
-                                <div className="flex justify-center items-center">
-                                    <p className="text-center font-[500] text-secondary text-xl md:text-2xl custom-FontFamily">
-                                        {topic}
-                                    </p>
-                                </div>
-                                <div className="flex justify-center items-center">
-                                    <StarRating
-                                        value={value}
-                                        name={`topic-${index}`}
-                                        onChange={(newValue) => handleRatingChange(topic, newValue)}
-                                    />
-                                </div>
-                            </div>
-                        ))}
+                        {
+                            topics !== null ?
+                                Object.entries(topics)?.map(([topic, value], index) => (
+                                        <div key={index} className="w-full grid grid-cols-2 gap-4 items-center justify-center my-2">
+                                            <div className="flex justify-center items-center">
+                                                <p className="text-center font-[500] text-secondary text-xl md:text-2xl custom-FontFamily">
+                                                    {topic}
+                                                </p>
+                                            </div>
+                                            <div className="flex justify-center items-center">
+                                                <StarRating
+                                                    value={value}
+                                                    name={`topic-${index}`}
+                                                    onChange={(newValue) => handleRatingChange(topic, newValue)}
+                                                />
+                                            </div>
+                                        </div>
+                                    )) : null
+                        }
+
                     </div>
                     <div>
                         <button  className="btn btn-primary btn-outline px-6 py-2" onClick={handleSubmit}>Proceed</button>

@@ -1,9 +1,9 @@
 const express  = require("express")
 const router = express.Router();
 
-const verifyOtpController = require("./../controller/authController/verifyOtpController")
-const loginController = require("./../controller/authController/loginController");
-const signUpController = require("./../controller/authController/signUpController")
+const verifyOtpController = require("../controller/authControllers/verifyOtpController")
+const loginController = require("../controller/authControllers/loginController");
+const signUpController = require("../controller/authControllers/signUpController")
 
 router.post("/verifyotp",verifyOtpController)
 router.post("/login",loginController)
