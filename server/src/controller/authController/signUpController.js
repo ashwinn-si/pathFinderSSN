@@ -6,11 +6,11 @@ const signUpController = async(req,res) =>{
     const user = await loginModel.findOne({email})
     try{
         if(!user){
-            throw new error("user not found")
+            throw new Error("user not found")
         }
         const dbOtp = user.otp;
         if(otp !== dbOtp){
-            throw new error("otp is wrong")
+            throw new Error("otp is wrong")
         }
         res.status(200).json({message : "otp verified"})
     }catch(err){
