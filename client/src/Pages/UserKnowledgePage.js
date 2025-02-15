@@ -9,7 +9,7 @@ function UserKnowledgePage(){
     const [topics, setTopics] = useState(null);
 
     useEffect(()=>{
-        api.get(`/api/user/getSkill/${email}`).then((response) => {
+        api.get(`/api/user/getSkill`).then((response) => {
             const data = response.data.data;
             const currentData = {}
             data.map((item) => {

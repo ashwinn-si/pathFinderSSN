@@ -22,15 +22,20 @@ function HeroPage() {
                         strokeColor="#ff0000"
                         minFontSize={100}
                     />
-                    <p className="custom-FontFamily text-xl mt-4 text-center text-primary font-[600]">
+                    <p className="custom-FontFamily text-2xl mt-4 text-center text-primary font-[600]">
                         Your Roadmap to Success, One Step at a Time!!
                     </p>
                     <div className="flex items-center justify-evenly mt-4">
                         <Link to="/login">
-                            <button className="btn btn-outline px-6 py-1 text-l custom-FontFamily">Login </button>
+                            <button className="btn btn-outline px-7 py-2 text-2xl text-center flex items-center justify-center custom-FontFamily h-auto">
+                                Login
+                            </button>
                         </Link>
+
                         <Link to="/signup">
-                            <button className="btn btn-outline px-6 py-1 text-l custom-FontFamily">SignUp </button>
+                            <button className="btn btn-outline px-7 py-2 text-2xl text-center flex items-center justify-center custom-FontFamily h-auto">
+                                SignUp
+                            </button>
                         </Link>
                     </div>
                 </div>

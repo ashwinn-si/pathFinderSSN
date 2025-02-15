@@ -25,8 +25,15 @@ module.exports = {
   ],
   daisyui: {
     themes: [
-      "lofi",
+      // {
+      //   lofi: {
+      //     ...require("daisyui/src/theming/themes")["[data-theme=lofi]"],
+      //     "header": "#8b5cf6",
+      //      },
+      // },
+        "lofi",
       "dim",
     ],
   },
+
 }

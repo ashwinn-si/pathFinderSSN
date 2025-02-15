@@ -20,8 +20,8 @@ function App() {
           <Route path="/signup" element={<SignUpPage />}></Route>
           <Route path="/dashboard/new" element={<DashBoardPageNew />}></Route>
           <Route path="/dashboard/old" element={<DashBoardPageOld />}></Route>
-          <Route path="/userKnowledge/:email" element={<UserKnowledgePage />}></Route>
-          <Route path="/goalselection/:email" element={<SelectGoalPage />}></Route>
+          <Route path="/userKnowledge" element={<UserKnowledgePage />}></Route>
+          <Route path="/goalselection" element={<SelectGoalPage />}></Route>
           <Route path="/assessment" element={<AssessmentPage />}></Route>
         </Routes>
       </BrowserRouter>

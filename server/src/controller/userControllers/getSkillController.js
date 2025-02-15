@@ -3,11 +3,10 @@ const userModel = require("./../../models/userModel")
 
 const getSkillController = async(req,res) => {
     try{
-        const email = req.params.email;
+        const email = req.user.email;
         const user = await userModel.findOne({email});
         const skill = user.skill;
 
-    
         const topicDetails = await topicModel.findOne({topic : skill})
         const subTopics  =  topicDetails.subTopics
         

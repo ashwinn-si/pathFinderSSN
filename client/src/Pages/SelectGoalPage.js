@@ -4,7 +4,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import api from "./../AxiosProvider"
 
 function SelectGoalPage(props) {
-    const email = useParams().email;
     const [goal, setGoal] = useState("Select Goal");
     const navigate = useNavigate();
     const goals = [
@@ -15,11 +14,10 @@ function SelectGoalPage(props) {
 
     function handleSubmit(){
         api.post("/api/user/addskill",{
-            email: email,
             skill : goal
         }).then(response =>{
             if(response.status === 200){
-                navigate(`/userKnowledge/${email}`);
+                navigate(`/userKnowledge`);
             }
         }).catch(error =>{
             console.log(error);

@@ -11,12 +11,12 @@ function LandingPage() {
             <section id="Home">
                 <HeroPage/>
             </section>
-            <section id="Documentation-1">
-                <Documentation1Page/>
-            </section>
+            {/*<section id="Documentation-1">*/}
+            {/*    <Documentation1Page/>*/}
+            {/*</section>*/}
             
         </div>
-
     )
 }
+
 export default LandingPage;

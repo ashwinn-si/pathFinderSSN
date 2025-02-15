@@ -23,7 +23,7 @@ function SignUpPage(){
             if(response.status === 200){
                 dispatch({ type: "SET_MESSAGE_FLAG", payload: 1 });
                 setTimeout(()=>{
-                    navigate(`/goalselection/${state.email}`);
+                    navigate(`/goalselection`);
                 },2000)
             }
         }).catch((err)=>{
@@ -51,7 +51,6 @@ function SignUpPage(){
             email: state.email,
             password: state.password,
             name: state.username
-
         }).then((response) => {
             dispatch({ type: "SET_MESSAGE_FLAG", payload: 4 });            
             dispatch({type: "TOGGLE_OTP_FLAG"})

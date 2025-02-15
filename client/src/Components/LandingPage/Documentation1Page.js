@@ -42,6 +42,55 @@ function Documentation1Page(){
         }
     ];
 
+    const ourSolution = [
+        {
+            topic: "Domain Selection",
+            description: "User selects a learning domain (e.g., Web Development, Data Science, etc.)."
+        },
+        {
+            topic: "Self-Assessment",
+            description: "User rates their proficiency in key topics within the chosen domain on a scale of 1 to 5."
+        },
+        {
+            topic: "AI-Driven Question Generation",
+            description: "AI generates a question based on the user's initial rating for the first topic."
+        },
+        {
+            topic: "Adaptive Questioning",
+            description: "Subsequent questions adapt dynamically based on the user’s responses, adjusting difficulty accordingly."
+        },
+        {
+            topic: "Comprehensive Assessment",
+            description: "Each topic includes 5–8 adaptive questions to assess knowledge accurately."
+        },
+        {
+            topic: "Knowledge Tracking",
+            description: "Platform stores all questions and responses to track the user’s knowledge level."
+        },
+        {
+            topic: "Personalized Learning Roadmap",
+            description: "After assessment, AI generates a personalized learning roadmap highlighting focus areas."
+        },
+        {
+            topic: "Resource Recommendations",
+            description: "Recommended resources are provided based on the user’s strengths and weaknesses."
+        },
+        {
+            topic: "Structured Learning Path",
+            description: "Ensures a structured and efficient learning path tailored to the user’s skill level."
+        }
+    ];
+
+
+    const uniqueNess = [
+        "Personalized roadmap generation based on user assessment",
+        "Adaptive assessment dynamically adjusting question difficulty",
+        "Questions are generated based on the user's previous responses",
+        "Data-driven tracking of knowledge progression for tailored learning",
+        "AI-powered recommendations for focused learning resources",
+        "Ensures an efficient and structured learning experience"
+    ];
+
 
     const itemVariants = {
         hidden: { y: 10, opacity: 0 },
@@ -59,7 +108,7 @@ function Documentation1Page(){
             <motion.div className="absolute grid grid-cols-1 lg:grid-cols-[57fr_38fr] grid-rows-[auto_auto] lg:grid-rows-none min-h-screen z-[11] w-full gap-4 p-2 md:p-4">
                 <div className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-evenly items-center overflow-hidden" variants={itemVariants} whileInView="visible" initial="hidden"
                      exit="exit" >
-                    <p className="text-xl md:text-2xl lg:text-3xl font-[550] text-primary mb-4">
+                    <p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary mb-4">
                         Reason For Developement
                     </p>
                     <motion.div className="w-full my-3 md:my-5">
@@ -68,8 +117,8 @@ function Documentation1Page(){
                                 <motion.div key={index} className="flex items-center gap-2 w-full" variants={itemVariants} whileInView="visible" initial="hidden"
                                             exit="exit" >
                                     <GoArrowRight className="text-primary min-w-[16px] md:min-w-[20px]" />
-                                    <p className="text-sm md:text-base lg:text-lg hover:py-1 hover:scale-105 transition-all duration-300 cursor-pointer w-full text-left">
-                                        <span className="font-[600]"> {learn.point} - </span>{learn.description}
+                                    <p className="text-sm md:text-base lg:text-lg hover:py-1 hover:scale-105 transition-all duration-300 cursor-pointer w-full text-left font-[600]">
+                                        <span className="font-[700] text-secondary"> {learn.point} - </span>{learn.description}
                                     </p>
                                 </motion.div>
                             ))}
@@ -86,55 +135,31 @@ function Documentation1Page(){
                         </div>
                     </motion.div>
                 </div>
-
-                <motion.div className="grid grid-rows-2 gap-4" variants={itemVariants} whileInView="visible" initial="hidden"
+                <motion.div className="grid grid-rows-[70%_28%] gap-4" variants={itemVariants} whileInView="visible" initial="hidden"
                             exit="exit" >
                     <div className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-start items-center overflow-hidden">
-                        <p className="text-xl md:text-2xl lg:text-3xl font-[550] text-primary mb-4">Password</p>
-                        <motion.div className=" my-5 overflow-x-auto" variants={itemVariants} whileInView="visible" initial="hidden"
-                                    exit="exit" >
-                            <table className="table w-full lg:w-1/2 mx-auto">
-                                <thead>
-                                <tr>
-                                    <th className="text-center text-base lg:text-lg">Email</th>
-                                    <th className="text-center text-base lg:text-lg">Password</th>
-                                    <th className="text-center text-base lg:text-lg">Role</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td className="text-center text-sm lg:text-base">admin</td>
-                                    <td className="text-center text-sm lg:text-base">root</td>
-                                    <td className="text-center text-sm lg:text-base">admin</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <p className="text-xl md:text-2xl lg:text-3xl font-[550] text-primary mb-4 font-[800]">
+                            Our Solution
+                        </p>
+                        <motion.div className="w-full my-3 md:my-5">
+                            <div className="flex flex-col items-start gap-2 md:gap-3">
+                                {ourSolution.map((learn, index) => (
+                                    <motion.div key={index} className="flex items-center gap-2 w-full" variants={itemVariants} whileInView="visible" initial="hidden"
+                                                exit="exit" >
+                                        <GoArrowRight className="text-primary min-w-[16px] md:min-w-[20px]" />
+                                        <p className="text-sm md:text-base lg:text-lg hover:py-1 hover:scale-105 transition-all duration-300 cursor-pointer w-full text-left font-[600]">
+                                            <span className="font-[700] text-secondary"> {learn.topic} - </span>{learn.description}
+                                        </p>
+                                    </motion.div>
+                                ))}
+                            </div>
                         </motion.div>
-                        <div className="flex flex-col items-start gap-2 md:gap-3">
-                            <p className="text-lg md:text-xl lg:text-2xl font-[700] text-center hover:tracking-widest transition-all duration-300 mb-4 w-full">
-                                Steps
-                            </p>
-                            {/*{*/}
-                            {/*    userSteps.map((step, index) => (*/}
-                            {/*        <motion.div className="flex items-center gap-2 w-full" variants={itemVariants} whileInView="visible" initial="hidden"*/}
-                            {/*                    exit="exit"  key={index}>*/}
-                            {/*            <GoArrowRight className="text-primary min-w-[16px] md:min-w-[20px]" />*/}
-                            {/*            <p className="text-sm md:text-base lg:text-lg hover:py-1 hover:scale-105 transition-all duration-300 cursor-pointer w-full text-left">*/}
-                            {/*                {step}*/}
-                            {/*            </p>*/}
-                            {/*        </motion.div>*/}
-                            {/*    ))*/}
-                            {/*}*/}
-
-                        </div>
                     </div>
                     <motion.div
                         variants={itemVariants} whileInView="visible" initial="hidden"
                         exit="exit"
                         className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-evenly items-center overflow-hidden">
-                        <p className="text-lg md:text-xl lg:text-2xl font-[700] text-center hover:tracking-widest transition-all duration-300 mb-4 cursor-pointer">
-                            Developed By : <span className="text-primary">Ashwin SI</span>
-                        </p>
+
                     </motion.div>
                 </motion.div>
             </motion.div>

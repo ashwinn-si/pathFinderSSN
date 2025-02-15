@@ -5,8 +5,10 @@ const aiRoutes = require("./routes/aiRoutes")
 const userRoutes = require("./routes/userRoutes")
 const adminRoutes = require("./routes/adminRoutes")
 const cors = require("cors")
+const cookie_parse = require("cookie-parser");
 
 app.use(express.json())
+app.use(cookie_parse())
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true,

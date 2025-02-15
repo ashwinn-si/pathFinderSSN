@@ -1,5 +1,7 @@
 const { error } = require("console");
 const loginModel = require("../../models/userModel")
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const signUpController = async(req,res) =>{
     const {email, otp} = req.body;
@@ -12,6 +14,15 @@ const signUpController = async(req,res) =>{
         if(otp !== dbOtp){
             throw new Error("otp is wrong")
         }
+        const token = await jwt.sign({email : email}, process.env.JWT_SCERET, { expiresIn: "1h" } );
+
+        res.cookie("jwtToken", token, {
+            secure: true,
+            httpOnly: true,
+            sameSite: "none",
+            maxAge: 60 * 60 * 1000
+        });
+
         res.status(200).json({message : "otp verified"})
     }catch(err){
         if(err.message === "user not found"){
