@@ -159,7 +159,9 @@ function Documentation1Page(){
                         variants={itemVariants} whileInView="visible" initial="hidden"
                         exit="exit"
                         className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-evenly items-center overflow-hidden">
-
+                        <p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary mb-4">
+                        Set your Goal - Take the Test - Follow the map
+                        </p>
                     </motion.div>
                 </motion.div>
             </motion.div>
