@@ -8,6 +8,7 @@ import DashBoardPageOld from "./Pages/DashBoard/DashBoardPageOld";
 import SelectGoalPage from "./Pages/SelectGoalPage";
 import AssessmentPage from "./Pages/AssessmentPage";
 import UserKnowledgePage from "./Pages/UserKnowledgePage";
+import RoadMapPage from "./Pages/RoadMapPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/userKnowledge" element={<UserKnowledgePage />}></Route>
           <Route path="/goalselection" element={<SelectGoalPage />}></Route>
           <Route path="/assessment" element={<AssessmentPage />}></Route>
+          <Route path="/roadMap" element={<RoadMapPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
