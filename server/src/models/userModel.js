@@ -1,5 +1,12 @@
 const mongoose = require("mongoose")
 
+
+const questionSchema = new mongoose.Schema({
+  question : String,
+  answer : String,
+  options : [String,]
+})
+
 const userSchema = new mongoose.Schema({
   name : {
     type : String,
@@ -19,6 +26,11 @@ const userSchema = new mongoose.Schema({
   },
   skill : {
     type : String,
+    default : ""
+  },
+  questions : {
+    type : [questionSchema,],
+    default : []
   }
 })
 
