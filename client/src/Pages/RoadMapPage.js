@@ -1,43 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import RoadMapSeparatePage from "./RoadMapSeparatePage";
 
 function RoadMapPage() {
-    const initialRoadmapData = [
-        { 
-            id: 1,
-            title: "Introduction to Web Development", 
-            description: "Learn the basics of how websites work, the internet, and key technologies like HTML, CSS, and JavaScript.",
-            status: "completed"
-        },
-        { 
-            id: 2,
-            title: "HTML & CSS Fundamentals", 
-            description: "Understand HTML structure and semantic elements. Learn CSS for styling, layouts, and responsive design.",
-            status: "completed"
-        },
-        { 
-            id: 3,
-            title: "JavaScript Basics", 
-            description: "Explore JavaScript fundamentals, including variables, functions, loops, DOM manipulation, and event handling.",
-            status: "current"
-        },
-        { 
-            id: 4,
-            title: "Version Control & Git", 
-            description: "Learn Git and GitHub for tracking changes, collaborating on projects, and handling repositories efficiently.",
-            status: "upcoming"
-        },
-        { 
-            id: 5,
-            title: "Responsive Design & CSS Frameworks", 
-            description: "Master media queries for mobile-friendly websites. Explore frameworks like Bootstrap and Tailwind CSS for faster development.",
-            status: "upcoming"
-        }
-        
-    ];
-    
-    
-    
+    const [separatePageVisibleFlag, setSeparatePageVisibleFlag] = useState(false);
+    const [header, setHeader] = useState("")
+    const [description, setDescription] = useState("")
+    const [reasourcesLink, setReasourcesLink] = useState(null)
 
+    const initialRoadmapData = [
+      { 
+          "id": 1,
+          "title": "Introduction to Web Development", 
+          "description": "Learn the basics of how websites work, the internet, and key technologies like HTML, CSS, and JavaScript.",
+          "status": "completed",
+          "links": [
+              {
+                  "topic": "Intro To Web",
+                  "link": "https://example.com/intro-to-web"
+              }
+          ]
+      },
+      { 
+          "id": 2,
+          "title": "HTML & CSS Fundamentals", 
+          "description": "Understand HTML structure and semantic elements. Learn CSS for styling, layouts, and responsive design.",
+          "status": "completed",
+          "links": [
+              {
+                  "topic": "HTML Basics",
+                  "link": "https://example.com/html-basics"
+              },
+              {
+                  "topic": "CSS Fundamentals",
+                  "link": "https://example.com/css-fundamentals"
+              }
+          ]
+      },
+      { 
+          "id": 3,
+          "title": "JavaScript Basics", 
+          "description": "Explore JavaScript fundamentals, including variables, functions, loops, DOM manipulation, and event handling.",
+          "status": "current",
+          "links": [
+              {
+                  "topic": "JavaScript Introduction",
+                  "link": "https://example.com/javascript-intro"
+              },
+              {
+                  "topic": "JavaScript DOM",
+                  "link": "https://example.com/javascript-dom"
+              }
+          ]
+      }
+  ]
+  
   const [roadmapData, setRoadmapData] = useState(initialRoadmapData);
 
   const updateStatus = (id) => {
@@ -50,9 +67,35 @@ function RoadMapPage() {
     );
   };
 
+  useEffect(() => {
+    if (reasourcesLink && !separatePageVisibleFlag) {
+      setSeparatePageVisibleFlag(true);
+    }
+  }, [reasourcesLink]); // Ensure correct spelling
+  
+  const handleMoreInfoClick = (index) => {
+    setHeader(initialRoadmapData[index].title);
+    setDescription(initialRoadmapData[index].description);
+    setReasourcesLink(initialRoadmapData[index].links); // Ensure correct spelling
+    console.log("hello");
+  };
+  
+  const handleBack = () =>{
+    setSeparatePageVisibleFlag(false);
+  }
+
   return (
-    <div className="w-full max-w-4xl mx-auto p-8">
-      <div className="bg-base-200 rounded-xl p-8 shadow-xl relative">
+    <>
+    {
+      separatePageVisibleFlag ? 
+      <div className="relative">
+      <button className="btn  btn-primary-outline  absolute top-2 left-5 z-[11] border border-solid border-1" onClick={handleBack} >
+                      Back
+                      </button>
+        <RoadMapSeparatePage header = {header} description={description} reasourcesLink={reasourcesLink}/>
+      </div> :
+      <div className="w-full max-w-4xl mx-auto p-8 custom-FontFamily ">
+      <div className="bg-base-200 rounded-xl p-8 shadow-xl  border">
         <div className="mb-10 text-center">
           <h1 className="text-3xl font-bold text-base-content mb-2">Roadmap</h1>
         </div>
@@ -79,7 +122,7 @@ function RoadMapPage() {
                       }`}>
                         {item.title}
                       </h3>
-                      <span className={`badge ${
+                      <span className={` rounded  px-2 py-1 text-center ${
                         item.status === "completed" ? "badge-success text-success-content font-bold" : 
                         item.status === "current" ? "badge-primary text-primary-content font-bold" : 
                         "badge-ghost"
@@ -96,7 +139,7 @@ function RoadMapPage() {
                     </p>
 
                     {/* Action Buttons */}
-                    <div className="flex gap-4 flex-col lg:flex-row">
+                    <div className="flex gap-4 flex-col lg:flex-row flex-wrap justify-center items-center">
                       <button
                         onClick={() => updateStatus(item.id)}
                         className={`btn btn-sm ${
@@ -111,7 +154,7 @@ function RoadMapPage() {
                       <button className={`btn btn-sm btn-ghost ${
                         item.status === "current" ? "text-primary-content" :
                         "text-base-content"
-                      }`}>
+                      }`} onClick={(()=>handleMoreInfoClick(index))}>
                         More Info
                       </button>
                     </div>
@@ -147,7 +190,10 @@ function RoadMapPage() {
           ))}
         </div>
       </div>
-    </div>
+      </div>
+    }
+    </>
+    
   );
 }
 

@@ -9,6 +9,7 @@ import SelectGoalPage from "./Pages/SelectGoalPage";
 import AssessmentPage from "./Pages/AssessmentPage";
 import UserKnowledgePage from "./Pages/UserKnowledgePage";
 import RoadMapPage from "./Pages/RoadMapPage";
+import RoadMapSeparatePage from "./Pages/RoadMapSeparatePage"
 
 function App() {
   return (
