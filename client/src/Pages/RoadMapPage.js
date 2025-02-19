@@ -52,14 +52,13 @@ function RoadMapPage() {
 
   return (
     <div className="w-full max-w-4xl mx-auto p-8">
-      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-8 shadow-xl relative">
+      <div className="bg-base-200 rounded-xl p-8 shadow-xl relative">
         <div className="mb-10 text-center">
-          <h1 className="text-3xl font-bold text-white mb-2">Roadmap</h1>
-          
+          <h1 className="text-3xl font-bold text-base-content mb-2">Roadmap</h1>
         </div>
 
         {/* Main vertical line for desktop */}
-        <div className="hidden md:block absolute left-1/2 top-32 bottom-20 w-1 bg-gray-700 -translate-x-1/2 z-0"></div>
+        <div className="hidden md:block absolute left-1/2 top-32 bottom-20 w-1 bg-base-content/20 -translate-x-1/2 z-0"></div>
 
         <div className="relative z-10">
           {roadmapData.map((item, index) => (
@@ -67,58 +66,76 @@ function RoadMapPage() {
               <div className={`flex flex-col md:flex-row items-start md:items-center gap-4 ${index % 2 === 1 ? "md:flex-row-reverse" : ""}`}>
                 {/* Roadmap Content */}
                 <div className="w-full md:w-5/12 group">
-                  <div className="bg-gray-800/60 backdrop-blur rounded-lg p-5 border-t border-gray-700 hover:bg-gray-800/80 transition-colors relative">
+                  <div className={`backdrop-blur rounded-lg p-5 transition-all duration-300 ${
+                    item.status === "completed" ? "bg-success/10 border-2 border-success hover:bg-success/20" :
+                    item.status === "current" ? "bg-primary/10 border-2 border-primary hover:bg-primary/20" :
+                    "bg-base-100 border border-base-300 hover:bg-base-200"
+                  }`}>
                     <div className="flex justify-between items-start mb-3">
-                      <h3 className={`text-xl font-semibold ${item.status === "completed" ? "text-success" : item.status === "current" ? "text-primary" : "text-gray-300"}`}>
+                      <h3 className={`text-xl font-semibold ${
+                      
+                        item.status === "current" ? "text-primary-content" : 
+                        "text-base-content"
+                      }`}>
                         {item.title}
                       </h3>
-                      <span
-                        className={`inline-flex items-center px-3 py-1 text-xs font-medium rounded-full 
-                            ${item.status === "completed" ? "bg-success text-success-content" : 
-                            item.status === "current" ? "bg-primary text-primary-content" : 
-                            "bg-gray-900 text-gray-400"}`}
-                        >
+                      <span className={`badge ${
+                        item.status === "completed" ? "badge-success text-success-content font-bold" : 
+                        item.status === "current" ? "badge-primary text-primary-content font-bold" : 
+                        "badge-ghost"
+                      }`}>
                         {index + 1}
-                        </span>
-
+                      </span>
                     </div>
-                    <p className="text-gray-400 text-sm mb-4">{item.description}</p>
+                    <p className={`text-sm mb-4 ${
+                     
+                      item.status === "current" ? "text-primary-content/80" :
+                      "text-base-content/70"
+                    }`}>
+                      {item.description}
+                    </p>
 
+                    {/* Action Buttons */}
+                    <div className="flex gap-4 flex-col lg:flex-row">
+                      <button
+                        onClick={() => updateStatus(item.id)}
+                        className={`btn btn-sm ${
+                          item.status === "completed" ? "btn-success text-success-content" :
+                          item.status === "current" ? "btn-primary text-primary-content" :
+                          "btn-neutral"
+                        }`}
+                      >
+                        {item.status === "completed" ? "Mark as Not Completed" : "Mark as Completed"}
+                      </button>
 
-                    {/* Mark as Completed Button */}
-                    <div className="flex gap-4">
-                        <button
-                            onClick={() => updateStatus(item.id)}
-                            className="mt-4 px-4 py-2 text-sm font-medium text-white rounded transition-colors bg-primary hover:bg-primary-focus"
-                        >
-                            {item.status === "completed" ? "Mark as Not Completed" : "Mark as Completed"}
-                        </button>
-
-                        <button
-                            className="mt-4 px-4 py-2 text-sm font-medium text-white rounded transition-colors bg-neutral hover:bg-neutral-focus"
-                        >
-                            More Info
-                        </button>
+                      <button className={`btn btn-sm btn-ghost ${
+                        item.status === "current" ? "text-primary-content" :
+                        "text-base-content"
+                      }`}>
+                        More Info
+                      </button>
                     </div>
-                    
                   </div>
                 </div>
 
                 {/* Center Node */}
                 <div className="md:absolute left-1/2 -translate-x-1/2 hidden md:flex">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${item.status === "completed" ? "bg-success" : item.status === "current" ? "bg-primary ring-2 ring-primary-focus/50" : "bg-gray-800"}`}>
-                    {/* Status Icon */}
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
+                    item.status === "completed" ? "bg-success text-success-content ring-4 ring-success/30" : 
+                    item.status === "current" ? "bg-primary text-primary-content ring-4 ring-primary/30" : 
+                    "bg-base-300 text-base-content ring-2 ring-base-content/20"
+                  }`}>
                     {item.status === "completed" ? (
-                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
                     ) : item.status === "current" ? (
-                      <svg className="w-6 h-6 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg className="w-7 h-7 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <circle cx="12" cy="12" r="3" />
                       </svg>
                     ) : (
-                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <polyline points="12 6 12 12 16 14" />
                       </svg>
@@ -128,16 +145,6 @@ function RoadMapPage() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Legend */}
-        <div className="absolute bottom-6 right-6 p-3 bg-gray-800/60 backdrop-blur rounded-lg">
-          <p className="text-gray-400 text-sm">Legend:</p>
-          <div className="flex gap-4 text-sm">
-            <span className="flex items-center text-success">✔ Completed</span>
-            <span className="flex items-center text-primary">● Current</span>
-            <span className="flex items-center text-gray-400">○ Upcoming</span>
-          </div>
         </div>
       </div>
     </div>
