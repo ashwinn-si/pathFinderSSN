@@ -24,7 +24,7 @@ function App() {
           <Route path="/userKnowledge" element={<UserKnowledgePage />}></Route>
           <Route path="/goalselection" element={<SelectGoalPage />}></Route>
           <Route path="/assessment" element={<AssessmentPage />}></Route>
-          <Route path="/roadMap" element={<RoadMapPage />}></Route>
+          <Route path="/roadmap" element={<RoadMapPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
