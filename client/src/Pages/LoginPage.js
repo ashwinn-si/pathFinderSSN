@@ -27,7 +27,7 @@ function LoginPage(){
         }).then((response)=>{
             dispatch({ type: "SET_MESSAGE_FLAG", payload: 1 });
             setTimeout(()=>{
-                navigate("/dashboard/old")
+                navigate("/roadmap")
             },2000)
             
         }).catch((err)=>{

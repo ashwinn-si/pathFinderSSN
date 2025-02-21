@@ -8,10 +8,10 @@ function AssessmentPage(props) {
     const [selectedAnswer, setSelectedAnswer] = useState('');
 
     const options = [
-        { id: 'a', text: 'This is the first option for the MCQ question' },
-        { id: 'b', text: 'This is the second option for the MCQ question' },
-        { id: 'c', text: 'This is the third option for the MCQ question' },
-        { id: 'd', text: 'This is the fourth option for the MCQ question' }
+        { id: 'a', text: 'Hyper Text Markup Language' },
+        { id: 'b', text: 'High Tech Machine Learning' },
+        { id: 'c', text: 'Home Tool Markup Language' },
+        { id: 'd', text: 'Hyperlink and Text Markup Language' }
     ];
 
     function handleSubmit(){
@@ -24,7 +24,7 @@ function AssessmentPage(props) {
                 <div className="h-[90%] w-full flex flex-col items-center mb-4 p-6">
                     <div className="w-full mb-8">
                         <p className="text-center font-semibold text-primary text-2xl md:text-3xl">
-                            What is the main question that you want to ask here?
+                            What is the full form of HTML
                         </p>
                     </div>
 

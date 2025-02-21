@@ -71,12 +71,12 @@ function RoadMapPage() {
     if (reasourcesLink && !separatePageVisibleFlag) {
       setSeparatePageVisibleFlag(true);
     }
-  }, [reasourcesLink]); // Ensure correct spelling
+  }, [reasourcesLink]); 
   
   const handleMoreInfoClick = (index) => {
     setHeader(initialRoadmapData[index].title);
     setDescription(initialRoadmapData[index].description);
-    setReasourcesLink(initialRoadmapData[index].links); // Ensure correct spelling
+    setReasourcesLink(initialRoadmapData[index].links); 
     console.log("hello");
   };
   
@@ -89,7 +89,7 @@ function RoadMapPage() {
     {
       separatePageVisibleFlag ? 
       <div className="relative">
-      <button className="btn  btn-primary-outline  absolute top-2 left-5 z-[11] border border-solid border-1" onClick={handleBack} >
+      <button className=" btn btn-outline btn-accent  absolute top-2 left-5 z-[11] border border-solid border-1" onClick={handleBack} >
                       Back
                       </button>
         <RoadMapSeparatePage header = {header} description={description} reasourcesLink={reasourcesLink}/>
@@ -100,7 +100,7 @@ function RoadMapPage() {
           <h1 className="text-3xl font-bold text-base-content mb-2">Roadmap</h1>
         </div>
 
-        {/* Main vertical line for desktop */}
+
         <div className="hidden md:block absolute left-1/2 top-32 bottom-20 w-1 bg-base-content/20 -translate-x-1/2 z-0"></div>
 
         <div className="relative z-10">

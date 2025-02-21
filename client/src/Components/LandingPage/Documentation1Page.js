@@ -102,16 +102,48 @@ function Documentation1Page(){
         exit: { y: -10, opacity: 0, transition: { duration: 0.2 } },
     };
 
+
+    const itemVariantsLeft = {
+        hidden: { x: -50, opacity: 0 },
+        visible: {
+            x: 0,
+            opacity: 1,
+            transition: { duration: 1, ease: "easeOut" },
+        },
+        exit: { x: -50, opacity: 0, transition: { duration: 0.2 } },
+    };
+
+    const itemVariantsRight = {
+        hidden: { x: 50, opacity: 0 },
+        visible: {
+            x: 0,
+            opacity: 1,
+            transition: { duration: 1, ease: "easeOut" },
+        },
+        exit: { x: 50, opacity: 0, transition: { duration: 0.2 } },
+    };
+
+    const itemVariantsBottom = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: { duration: 1, ease: "easeOut" },
+        },
+        exit: { y: -50, opacity: 0, transition: { duration: 0.2 } },
+    };
+
     return(
         <div className="relative flex flex-col items-center justify-center h-[200vh] lg:h-[100vh]">
             <Background />
-            <motion.div className="absolute grid grid-cols-1 lg:grid-cols-[57fr_38fr] grid-rows-[auto_auto] lg:grid-rows-none min-h-screen z-[11] w-full gap-4 p-2 md:p-4">
-                <div className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-evenly items-center overflow-hidden" variants={itemVariants} whileInView="visible" initial="hidden"
+            <div className="absolute grid grid-cols-1 lg:grid-cols-[57fr_38fr] grid-rows-[auto_auto] lg:grid-rows-none min-h-screen z-[11] w-full gap-4 p-2 md:p-4">
+                <motion.div className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-evenly items-center overflow-hidden" variants={itemVariantsLeft} whileInView="visible" initial="hidden"
                      exit="exit" >
-                    <p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary mb-4">
+                    <p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary mb-4 hover:tracking-widest transition-all duration-300 mb-4 cursor-pointer">
                         Reason For Developement
                     </p>
-                    <motion.div className="w-full my-3 md:my-5">
+                    <motion.div className="w-full my-3 md:my-5" variants={itemVariants} whileInView="visible" initial="hidden"
+                                exit="exit" >
                         <div className="flex flex-col items-start gap-2 md:gap-3">
                             {learningChallenges.map((learn, index) => (
                                 <motion.div key={index} className="flex items-center gap-2 w-full" variants={itemVariants} whileInView="visible" initial="hidden"
@@ -134,11 +166,11 @@ function Documentation1Page(){
                             <button className="btn btn-outline btn-accent text-sm md:text-base"><a href="https://github.com/ashwinn-si/autherizationBackEnd" target="_blank">BackEnd</a></button>
                         </div>
                     </motion.div>
-                </div>
-                <motion.div className="grid grid-rows-[70%_28%] gap-4" variants={itemVariants} whileInView="visible" initial="hidden"
+                </motion.div>
+                <motion.div className="grid grid-rows-[70%_28%] gap-4" variants={itemVariantsRight} whileInView="visible" initial="hidden"
                             exit="exit" >
                     <div className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-start items-center overflow-hidden">
-                        <p className="text-xl md:text-2xl lg:text-3xl font-[550] text-primary mb-4 font-[800]">
+                        <p className="text-xl md:text-2xl lg:text-3xl  text-primary mb-4 font-[800] hover:tracking-widest transition-all duration-300 cursor-pointer">
                             Our Solution
                         </p>
                         <motion.div className="w-full my-3 md:my-5">
@@ -156,15 +188,16 @@ function Documentation1Page(){
                         </motion.div>
                     </div>
                     <motion.div
-                        variants={itemVariants} whileInView="visible" initial="hidden"
+                        variants={itemVariantsBottom} whileInView="visible" initial="hidden"
                         exit="exit"
                         className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-evenly items-center overflow-hidden">
-                        <p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary mb-4">
-                        Set your Goal - Take the Test - Follow the map
-                        </p>
+                        <motion.p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary mb-4 hover:tracking-wider transition-all duration-300 mb-4 cursor-pointer" variants={itemVariants} whileInView="visible" initial="hidden"
+                           exit="exit">
+                            Set your Goal <span className="text-secondary">-</span> Take the Test  <span className="text-secondary">-</span>  Follow the map
+                        </motion.p>
                     </motion.div>
                 </motion.div>
-            </motion.div>
+            </div>
         </div>
     )
 }

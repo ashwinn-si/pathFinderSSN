@@ -27,13 +27,13 @@ function HeroPage() {
                     </p>
                     <div className="flex items-center justify-evenly mt-4">
                         <Link to="/login">
-                            <button className="btn btn-outline px-7 py-2 text-2xl text-center flex items-center justify-center custom-FontFamily h-auto">
+                            <button className="btn btn-outline px-7 py-2 text-2xl text-center flex items-center justify-center custom-FontFamily h-auto hover:scale-110 transition-all duration-300">
                                 Login
                             </button>
                         </Link>
 
                         <Link to="/signup">
-                            <button className="btn btn-outline px-7 py-2 text-2xl text-center flex items-center justify-center custom-FontFamily h-auto">
+                            <button className="btn btn-outline px-7 py-2 text-2xl text-center flex items-center justify-center custom-FontFamily h-auto hover:scale-90 transition-all duration-300">
                                 SignUp
                             </button>
                         </Link>
