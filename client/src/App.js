@@ -7,6 +7,9 @@ import SelectGoalPage from "./Pages/SelectGoalPage";
 import AssessmentPage from "./Pages/AssessmentPage";
 import UserKnowledgePage from "./Pages/UserKnowledgePage";
 import RoadMapPage from "./Pages/RoadMapPage";
+import QuestionPageSkeletonLoader from "./Pages/SkeletonLoaderPage/QuestionPageSkeletonLoader";
+import RoadMapPageSkeleton from "./Pages/SkeletonLoaderPage/RoadMapPageSkeleton";
+import SkillPageSkeleton from "./Pages/SkeletonLoaderPage/SkillPageSkeleton";
 
 
 function App() {
@@ -21,6 +24,7 @@ function App() {
           <Route path="/userKnowledge" element={<UserKnowledgePage />}></Route>
           <Route path="/goalselection" element={<SelectGoalPage />}></Route>
           <Route path="/quiz" element={<AssessmentPage />}></Route>
+           <Route path="/skeletonLoader" element={<SkillPageSkeleton/>}></Route>
           <Route path="/roadmap" element={<RoadMapPage />}></Route>
         </Routes>
       </BrowserRouter>

@@ -7,11 +7,11 @@ import Documentation1Page from "../Components/LandingPage/Documentation1Page";
 
 function LandingPage() {
     return (
-        <div className="overflow-x-hidden">
-            <section id="Home">
+        <div className="overflow-x-hidden ">
+            <section id="Home"  className="overflow-hidden">
                 <HeroPage/>
             </section>
-            <section id="Documentation-1">
+            <section id="Documentation-1" className="overflow-hidden">
                <Documentation1Page/>
             </section>
             
