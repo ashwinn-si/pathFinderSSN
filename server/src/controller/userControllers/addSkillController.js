@@ -2,10 +2,11 @@ const loginModel = require("../../models/userModel")
 
 const addSkillController = async(req, res) =>{
     try{
-        const {skill} = req.body;
+        const {topic, subTopic} = req.body;
         const email = req.user.email;
-         const user = await loginModel.findOneAndUpdate({email},{
-            skill : skill
+        const user = await loginModel.findOneAndUpdate({email},{
+            skillTopic : topic,
+             skillSubTopic : subTopic
         });
         res.status(200).json({message : "skill added successful"})
     }catch(err){

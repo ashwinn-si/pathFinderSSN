@@ -10,6 +10,8 @@ import RoadMapPage from "./Pages/RoadMapPage";
 import QuestionPageSkeletonLoader from "./Pages/SkeletonLoaderPage/QuestionPageSkeletonLoader";
 import RoadMapPageSkeleton from "./Pages/SkeletonLoaderPage/RoadMapPageSkeleton";
 import SkillPageSkeleton from "./Pages/SkeletonLoaderPage/SkillPageSkeleton";
+import RoadMapDashBoardPage from "./Pages/RoadMapDashBoardPage";
+import Page404 from "./Pages/Page404";
 
 
 function App() {
@@ -25,7 +27,9 @@ function App() {
           <Route path="/goalselection" element={<SelectGoalPage />}></Route>
           <Route path="/quiz" element={<AssessmentPage />}></Route>
            <Route path="/skeletonLoader" element={<SkillPageSkeleton/>}></Route>
-          <Route path="/roadmap" element={<RoadMapPage />}></Route>
+            <Route path="/roadMapDashBoard" element = {<RoadMapDashBoardPage />}></Route>
+            <Route path="/Page404" element = {<Page404 />}></Route>
+           <Route path="/roadmap/:id" element={<RoadMapPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

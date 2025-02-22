@@ -2,22 +2,28 @@ import Background from "../Components/Background";
 import {useEffect, useState} from "react";
 import StarRating from "../Components/StarRating";
 import api from ".././AxiosProvider"
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 function UserKnowledgePage(){
-    const email = useParams().email;
+    const navigate = useNavigate();
     const [topics, setTopics] = useState(null);
 
     useEffect(()=>{
         api.get(`/api/user/getSkill`).then((response) => {
-            const data = response.data.data;
+            const data = response.data.data[0].modules;
+            console.log(data)
             const currentData = {}
             data.map((item) => {
                 currentData[item] = 0;
             })
             setTopics(currentData);
-        })
-    },[email])
+        }).catch(error => {
+                if (error.response && error.response.status === 401) {
+                    navigate("/Page404");
+                }
+            }
+        )
+    },[])
 
 
     const handleRatingChange = (topic, newValue) => {
@@ -30,10 +36,15 @@ function UserKnowledgePage(){
     const handleSubmit = () =>{
         console.log(topics)
     }
-
+    const handleBack = () =>{
+        navigate("/goalselection")
+    }
     return(
         <div className="w-screen h-screen relative flex justify-center items-center overflow-hidden">
             <Background />
+            <button className=" btn  btn-secondary  absolute top-7 left-20 z-[11] border border-solid border-1" onClick={handleBack} >
+                Back
+            </button>
             <div className=" w-[350px] lg:w-[800px]    h-auto  bg-base-300 rounded-lg border-2 border-solid border-neutral shadow-primary shadow-[0_0_5px]  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-85 flex justify-evenly items-center flex-col py-4 px-6">
                 <div className="h-[90%] w-full flex flex-col items-center mb-4 p-6">
                     <div className="h-[20%] w-full flex justify-center items-center mb-4">

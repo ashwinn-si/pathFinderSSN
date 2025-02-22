@@ -20,7 +20,7 @@ function RoadMapSeparatePage({header, description, reasourcesLink}){
                 <div  className="flex items-center gap-2 w-full flex-col"  >
                 {
                     reasourcesLink.map((item,index) => (
-                        <div  className="flex items-center gap-2 w-full">
+                        <div  className="flex items-center gap-2 w-full" key={index}>
                             <GoArrowRight className="text-primary min-w-[16px] md:min-w-[20px]" />
                             <p className="text-sm md:text-base lg:text-lg  cursor-pointer w-full text-left font-[600]">
                             <span className="font-[700] text-secondary">{item.topic} - </span> {item.link}

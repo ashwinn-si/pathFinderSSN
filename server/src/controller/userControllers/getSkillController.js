@@ -5,11 +5,11 @@ const getSkillController = async(req,res) => {
     try{
         const email = req.user.email;
         const user = await userModel.findOne({email});
-        const skill = user.skill;
+        const skillTopic = user.skillTopic;
+        const skillDetails = await topicModel.findOne({topic : skillTopic})
 
-        const topicDetails = await topicModel.findOne({topic : skill})
-        const subTopics  =  topicDetails.subTopics
-        
+        const subTopics  =  skillDetails.subTopics.filter(element => element.subTopic === user.skillSubTopic)
+
         res.status(200).json({data : subTopics})
     }catch(err){
         res.status(500).json({message : "internal server error"})

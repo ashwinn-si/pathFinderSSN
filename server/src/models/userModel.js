@@ -6,15 +6,21 @@ const linksSchema = new mongoose.Schema({
 })
 
 const moduleSchema = new mongoose.Schema({
-  id : String,
+  // id will generate in front end
   title : String,
   description : String,
-  status : String,
+  status : {
+    type : String,
+    enum : ["completed","current","uncompleted"],
+    default : "uncompleted"
+  },
   links : [linksSchema,]
 })
 
 const roadMapSchema = new mongoose.Schema({
   roadMapID : Number,
+  skillName : String,
+  dateOfCreation : String,
   modules :{
     type : [moduleSchema,],
     default :[]
@@ -44,7 +50,11 @@ const userSchema = new mongoose.Schema({
     type : String,
     required : true
   },
-  skill : {
+  skillTopic : {
+    type : String,
+    default : ""
+  },
+  skillSubTopic : {
     type : String,
     default : ""
   },

@@ -27,7 +27,7 @@ function LoginPage(){
         }).then((response)=>{
             dispatch({ type: "SET_MESSAGE_FLAG", payload: 1 });
             setTimeout(()=>{
-                navigate("/roadmap")
+                navigate("/roadMapDashBoard")
             },2000)
             
         }).catch((err)=>{
@@ -45,10 +45,16 @@ function LoginPage(){
             },2000)
         })
     }
+    const handleBack = ()=>{
+        navigate("/")
+    }
 
     return(
         <div className="w-screen h-screen relative flex justify-center items-center overflow-hidden">
             <Background />
+            <button className=" btn  btn-secondary  absolute top-7 left-20 z-[11] border border-solid border-1" onClick={handleBack} >
+                Home
+            </button>
                 {
                     state.messageFlag === 1 && <SuccessMessage message = "Login Successful"/>
                 }

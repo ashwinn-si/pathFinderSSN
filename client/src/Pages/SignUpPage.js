@@ -76,9 +76,14 @@ function SignUpPage(){
         })
     }
 
-
+    const handleBack = () =>{
+        navigate("/")
+    }
     return(
         <div className="w-screen h-screen relative flex justify-center items-center overflow-hidden">
+            <button className=" btn  btn-secondary  absolute top-7 left-20 z-[11] border border-solid border-1" onClick={handleBack} >
+                Home
+            </button>
             <Background />
                 {
                     state.messageFlag === 1 && <SuccessMessage message = "SignUp Successful"/>

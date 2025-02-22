@@ -1,71 +1,45 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {useState, useEffect, useCallback} from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import RoadMapSeparatePage from "./RoadMapSeparatePage";
+import axios from "./../AxiosProvider";
 
 function RoadMapPage() {
     const [separatePageVisibleFlag, setSeparatePageVisibleFlag] = useState(false);
+    const navigate = useNavigate();
+    const roadMapID = useParams().id;
+    const [roadMapName, setRoadMapName] = useState("");
     const [header, setHeader] = useState("")
     const [description, setDescription] = useState("")
     const [reasourcesLink, setReasourcesLink] = useState(null)
+    const [roadmapData, setRoadmapData] = useState([]);
+    const [initialRoadmapData, setInitialRoadmapData] = useState([])
 
-    const initialRoadmapData = [
-      { 
-          "id": 1,
-          "title": "Introduction to Web Development", 
-          "description": "Learn the basics of how websites work, the internet, and key technologies like HTML, CSS, and JavaScript.",
-          "status": "completed",
-          "links": [
-              {
-                  "topic": "Intro To Web",
-                  "link": "https://example.com/intro-to-web"
-              }
-          ]
-      },
-      { 
-          "id": 2,
-          "title": "HTML & CSS Fundamentals", 
-          "description": "Understand HTML structure and semantic elements. Learn CSS for styling, layouts, and responsive design.",
-          "status": "completed",
-          "links": [
-              {
-                  "topic": "HTML Basics",
-                  "link": "https://example.com/html-basics"
-              },
-              {
-                  "topic": "CSS Fundamentals",
-                  "link": "https://example.com/css-fundamentals"
-              }
-          ]
-      },
-      { 
-          "id": 3,
-          "title": "JavaScript Basics", 
-          "description": "Explore JavaScript fundamentals, including variables, functions, loops, DOM manipulation, and event handling.",
-          "status": "current",
-          "links": [
-              {
-                  "topic": "JavaScript Introduction",
-                  "link": "https://example.com/javascript-intro"
-              },
-              {
-                  "topic": "JavaScript DOM",
-                  "link": "https://example.com/javascript-dom"
-              }
-          ]
-      }
-  ]
-  
-  const [roadmapData, setRoadmapData] = useState(initialRoadmapData);
+    useEffect(() => {
+            axios.get(`/api/user/roadmap/roadmapGetDetails?roadMapID=${roadMapID}`).then((response) => {
+                const data = response.data[0];
+                console.log(data)
+                setRoadMapName(data.skillName)
+                const modules = data.modules.map((items, index) => ({ ...items, id: index }));
+                setRoadmapData(modules)
+            }).catch(e =>{
+                if(e.response.status === 401){
+                    navigate("/Page404");
+                }
+            })
+
+
+    },[roadMapID])
 
   const updateStatus = (id) => {
-    setRoadmapData(prevData =>
-      prevData.map(item =>
-        item.id === id
-          ? { ...item, status: item.status === "completed" ? "upcoming" : "completed" }
-          : item
-      )
-    );
-  };
+      setRoadmapData(prevData =>
+          prevData.map(item =>
+              item.id === id
+                  ? {...item, status: item.status === "completed" ? "upcoming" : "completed"}
+                  : item
+          )
+      );
+  }
+
 
   useEffect(() => {
     if (reasourcesLink && !separatePageVisibleFlag) {
@@ -74,15 +48,27 @@ function RoadMapPage() {
   }, [reasourcesLink]); 
   
   const handleMoreInfoClick = (index) => {
-    setHeader(initialRoadmapData[index].title);
-    setDescription(initialRoadmapData[index].description);
-    setReasourcesLink(initialRoadmapData[index].links); 
-    console.log("hello");
+
+    setHeader(roadmapData[index].title);
+    setDescription(roadmapData[index].description);
+    setReasourcesLink(roadmapData[index].links);
   };
   
   const handleBack = () =>{
     setSeparatePageVisibleFlag(false);
   }
+
+  const handlePageClose = () =>{
+      axios.post("/api/user/roadmap/update",{
+          modules : roadmapData,
+          roadMapID : roadMapID
+      }).then((response) => {
+         navigate("/roadMapDashBoard")
+          console.log(response)
+      })
+  };
+
+
 
   return (
     <>
@@ -91,21 +77,25 @@ function RoadMapPage() {
       <div className="relative">
       <button className=" btn btn-outline btn-accent  absolute top-2 left-5 z-[11] border border-solid border-1" onClick={handleBack} >
                       Back
-                      </button>
+      </button>
         <RoadMapSeparatePage header = {header} description={description} reasourcesLink={reasourcesLink}/>
-      </div> :
+      </div>
+          :
+
       <div className="w-full max-w-4xl mx-auto p-8 custom-FontFamily ">
+          <button className=" btn btn-outline btn-accent  absolute top-4 left-5 z-[11] border border-solid border-1" onClick={handlePageClose} >
+              Back
+          </button>
       <div className="bg-base-200 rounded-xl p-8 shadow-xl  border">
         <div className="mb-10 text-center">
-          <h1 className="text-3xl font-bold text-base-content mb-2">Roadmap</h1>
+          <h1 className="text-3xl font-bold text-base-content mb-2">{roadMapName} Roadmap</h1>
         </div>
-
 
         <div className="hidden md:block absolute left-1/2 top-32 bottom-20 w-1 bg-base-content/20 -translate-x-1/2 z-0"></div>
 
         <div className="relative z-10">
           {roadmapData.map((item, index) => (
-            <div key={item.id} className="mb-16 relative">
+            <div key={index} className="mb-16 relative">
               <div className={`flex flex-col md:flex-row items-start md:items-center gap-4 ${index % 2 === 1 ? "md:flex-row-reverse" : ""}`}>
                 {/* Roadmap Content */}
                 <div className="w-full md:w-5/12 group">
@@ -196,5 +186,6 @@ function RoadMapPage() {
     
   );
 }
+
 
 export default RoadMapPage;
