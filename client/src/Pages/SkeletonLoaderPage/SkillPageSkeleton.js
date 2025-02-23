@@ -3,6 +3,7 @@ import SkeletonLoader from "../../Components/SkeletonLoader";
 import Loader from "../../Components/Loader";
 
 function SkillPageSkeleton() {
+    console.log(document.documentElement.getAttribute("data-theme"));
     return (
         <div className="w-screen h-screen relative">
             <Background />
@@ -11,7 +12,7 @@ function SkillPageSkeleton() {
                     <p className="text-2xl font-semibold">Generating Skills...</p>
                     <Loader />
                 </div>
-                <SkeletonLoader width="80%" height="80%" />
+                <SkeletonLoader width="80%" height="80% " />
             </div>
         </div>
 
