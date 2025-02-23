@@ -21,6 +21,7 @@ function LoginPage(){
     function handleSubmit(e){
         e.preventDefault();
         dispatch({ type: "SET_MESSAGE_FLAG", payload: 0 });
+        console.log("flag updated")
         api.post("/api/auth/login",{
             email: state.email,
             password: state.password
@@ -32,6 +33,7 @@ function LoginPage(){
             
         }).catch((err)=>{
             if(err.response.status === 404){
+                console.log("noop")
                 dispatch({type:"SET_MESSAGE_FLAG", payload: 3})
             }else if(err.response.status === 401){
                 dispatch({ type: "SET_MESSAGE_FLAG", payload: 4 });
