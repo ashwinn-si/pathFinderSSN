@@ -150,7 +150,7 @@ function Documentation1Page(){
                                             exit="exit" >
                                     <GoArrowRight className="text-primary min-w-[16px] md:min-w-[20px]" />
                                     <p className="text-sm md:text-base lg:text-lg hover:py-1 hover:scale-105 transition-all duration-300 cursor-pointer w-full text-left font-[600]">
-                                        <span className="font-[700] text-secondary"> {learn.point} - </span>{learn.description}
+                                        <span className="font-[500] text-secondary"> {learn.point} - </span>{learn.description}
                                     </p>
                                 </motion.div>
                             ))}
@@ -191,7 +191,7 @@ function Documentation1Page(){
                         variants={itemVariantsBottom} whileInView="visible" initial="hidden"
                         exit="exit"
                         className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-evenly items-center overflow-hidden">
-                        <motion.p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary mb-4 hover:tracking-wider transition-all duration-300 mb-4 cursor-pointer" variants={itemVariants} whileInView="visible" initial="hidden"
+                        <motion.p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary hover:tracking-wider transition-all duration-300 mb-4 cursor-pointer" variants={itemVariants} whileInView="visible" initial="hidden"
                            exit="exit">
                             Set your Goal <span className="text-secondary">-</span> Take the Test  <span className="text-secondary">-</span>  Follow the map
                         </motion.p>

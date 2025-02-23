@@ -12,10 +12,10 @@ export const loginPageFormReducer = (state, action) => {
                 [action.payload.name] : action.payload.value
             }
         case "SET_MESSAGE_FLAG":
-            return{
-                ...state,
-                messageFlag: !state.messageFlag
-            }    
+            return {
+              ...state,
+              messageFlag: action.payload
+            };    
         default:
             return state;    
     }
