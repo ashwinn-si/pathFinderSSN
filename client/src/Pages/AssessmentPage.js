@@ -14,6 +14,7 @@ function AssessmentPage(props) {
     const [topicIndex, setTopicIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
     const [totalTopics, setTotalTopics] = useState(null);
+    const [noQuestions, setNoQuestions] = useState(5);
 
     const generateFirstQuestion = () =>{
         axios.get(`/api/questionGeneration/firstQuestion?topicIndex=${topicIndex}`).then((response) => {
@@ -50,8 +51,13 @@ function AssessmentPage(props) {
                 const nextQuestion = questionFormater(res2.data);
                 console.log(nextQuestion);
                 setOptions(nextQuestion.options)
-                setQuestion(nextQuestion.question);
-                setQuestionNumber(prevState => prevState+1);
+                if(options.length === 0){
+                    testCaseHandling();
+                }else{
+                    setQuestion(nextQuestion.question);
+                    setQuestionNumber(prevState => prevState+1);
+                }
+
             })
         }).catch((error) => {
             if(error.response.status === 401){
@@ -65,19 +71,14 @@ function AssessmentPage(props) {
         }
     },[topicIndex])
 
-    useEffect(() => {
-        if(options.length === 0){
-            testCaseHandling();
-        }
-    },[options])
     async function handleSubmit(){
         setLoaderFlag(true)
         setSelectedAnswer("");
         try{
-            if(topicIndex === totalTopics-1 && questionNumber === 5){
-                console.log("all over")
+            if(topicIndex === totalTopics-1 && questionNumber === noQuestions){
+                navigate("/generatingRoadMap")
             }else{
-                if(questionNumber === 5){
+                if(questionNumber === noQuestions){
                     await setQuestionNumber(0);
                     await setTopicIndex(prevState => prevState+1);
 

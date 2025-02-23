@@ -6,6 +6,7 @@ const userRoutes = require("./routes/userRoutes")
 const adminRoutes = require("./routes/adminRoutes")
 const roadmapRoutes = require("./routes/roadmapRoutes")
 const questionGenerationRoutes = require("./routes/questionGenerationRoutes")
+const roadMapGenerationRoutes = require("./routes/roadmapGenerationRoutes")
 const cors = require("cors")
 const cookie_parse = require("cookie-parser");
 
@@ -22,5 +23,6 @@ app.use("/api/user",userRoutes)
 app.use("/api/admin",adminRoutes)
 app.use("/api/user/roadmap",roadmapRoutes)
 app.use("/api/questionGeneration",questionGenerationRoutes)
+app.use("/api/roadMapGeneration",roadMapGenerationRoutes)
 
 module.exports = app

@@ -17,7 +17,7 @@ const firstQuestionController = async(req, res) => {
                 {"role": "system", "content": "You are a Quiz Master. The user has rated themselves on various subtopics. Generate an MCQ that adapts to the user's level, ensuring each question covers a different subtopic than the previous one. Only generate MCQ questions with options."},
                 { role: "user", content: prompt }
             ],
-            max_tokens: 50000
+            max_tokens: 6000
         },
         {
             headers: {

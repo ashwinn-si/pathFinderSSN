@@ -45,7 +45,7 @@ function SelectGoalPage(props) {
             <button className=" btn  btn-secondary  absolute top-7 left-20 z-[11] border border-solid border-1" onClick={handleBack} >
                 Back
             </button>
-            <div className=" w-[350px] lg:w-[500px]   h-auto md:h-[450px] bg-base-300 rounded-lg border-2 border-solid border-neutral shadow-primary shadow-[0_0_5px]  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-85 flex justify-evenly items-center flex-col">
+            <div className=" w-[350px] lg:w-[500px]    bg-base-300 rounded-lg border-2 border-solid border-neutral shadow-primary shadow-[0_0_5px]  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-85 flex justify-evenly items-center flex-col">
                 <div className="h-[20%] w-full flex justify-evenly items-center mb-4">
                     <p className="text-center font-semibold text-primary text-2xl md:text-3xl custom-FontFamily">Set Your Goal</p>
                 </div>
