@@ -134,12 +134,12 @@ function Documentation1Page(){
     };
 
     return(
-        <div className="relative flex flex-col items-center justify-center h-[200vh] lg:h-[100vh]">
+        <div className="relative flex flex-col items-center justify-center h-[200vh] lg:h-[150vh]">
             <Background />
             <div className="absolute grid grid-cols-1 lg:grid-cols-[57fr_38fr] grid-rows-[auto_auto] lg:grid-rows-none min-h-screen z-[11] w-full gap-4 p-2 md:p-4">
                 <motion.div className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-evenly items-center overflow-hidden" variants={itemVariantsLeft} whileInView="visible" initial="hidden"
                      exit="exit" >
-                    <p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary mb-4 hover:tracking-widest transition-all duration-300 mb-4 cursor-pointer">
+                    <p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary hover:tracking-widest transition-all duration-300 mb-4 cursor-pointer">
                         Reason For Developement
                     </p>
                     <motion.div className="w-full my-3 md:my-5" variants={itemVariants} whileInView="visible" initial="hidden"
@@ -149,8 +149,8 @@ function Documentation1Page(){
                                 <motion.div key={index} className="flex items-center gap-2 w-full" variants={itemVariants} whileInView="visible" initial="hidden"
                                             exit="exit" >
                                     <GoArrowRight className="text-primary min-w-[16px] md:min-w-[20px]" />
-                                    <p className="text-sm md:text-base lg:text-lg hover:py-1 hover:scale-105 transition-all duration-300 cursor-pointer w-full text-left font-[600]">
-                                        <span className="font-[500] text-secondary"> {learn.point} - </span>{learn.description}
+                                    <p className="text-[2rem] md:text-base lg:text-lg hover:py-1 hover:scale-105 transition-all duration-300 cursor-pointer w-full text-left font-[600]">
+                                        <span className="text-[1.2rem] font-[700] text-secondary"> {learn.point} - </span>{learn.description}
                                     </p>
                                 </motion.div>
                             ))}
@@ -179,7 +179,7 @@ function Documentation1Page(){
                                     <motion.div key={index} className="flex items-center gap-2 w-full" variants={itemVariants} whileInView="visible" initial="hidden"
                                                 exit="exit" >
                                         <GoArrowRight className="text-primary min-w-[16px] md:min-w-[20px]" />
-                                        <p className="text-sm md:text-base lg:text-lg hover:py-1 hover:scale-105 transition-all duration-300 cursor-pointer w-full text-left font-[600]">
+                                        <p className="text-m md:text-base lg:text-lg hover:py-1 hover:scale-105 transition-all duration-300 cursor-pointer w-full text-left font-[600]">
                                             <span className="font-[700] text-secondary"> {learn.topic} - </span>{learn.description}
                                         </p>
                                     </motion.div>
