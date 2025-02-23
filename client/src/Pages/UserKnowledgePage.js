@@ -14,7 +14,7 @@ function UserKnowledgePage(){
             console.log(data)
             const currentData = {}
             data.map((item) => {
-                currentData[item] = 0;
+                currentData[item] = 1;
             })
             setTopics(currentData);
         }).catch(error => {
@@ -34,7 +34,21 @@ function UserKnowledgePage(){
     };
 
     const handleSubmit = () =>{
-        console.log(topics)
+        let userTopics = []
+        let userRating = []
+        for(let topic in topics){
+            userTopics.push(topic);
+            userRating.push(topics[topic]);
+        }
+        api.post("/api/user/addKnowledge",{
+            topics : userTopics,
+            rating : userRating
+        }).then((response) => {
+            if(response.status === 200){
+                navigate("/quizPage");
+            }
+        })
+
     }
     const handleBack = () =>{
         navigate("/goalselection")
@@ -55,7 +69,7 @@ function UserKnowledgePage(){
                         {
                             topics !== null ?
                                 Object.entries(topics)?.map(([topic, value], index) => (
-                                        <div key={index} className="w-full grid grid-cols-2 gap-4 items-center justify-center my-2">
+                                        <div key={index} className="w-full grid grid-row-2 lg:grid-cols-2 gap-4 items-center justify-center my-2 ">
                                             <div className="flex justify-center items-center">
                                                 <p className="text-center font-[500] text-secondary text-xl md:text-2xl custom-FontFamily">
                                                     {topic}
@@ -76,7 +90,6 @@ function UserKnowledgePage(){
                     <div>
                         <button  className="btn btn-primary btn-outline px-6 py-2" onClick={handleSubmit}>Proceed</button>
                     </div>
-
                 </div>
             </div>
         </div>

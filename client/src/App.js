@@ -25,7 +25,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />}></Route>
           <Route path="/userKnowledge" element={<UserKnowledgePage />}></Route>
           <Route path="/goalselection" element={<SelectGoalPage />}></Route>
-          <Route path="/quiz" element={<AssessmentPage />}></Route>
+          <Route path="/quizPage" element={<AssessmentPage />}></Route>
            <Route path="/skeletonLoader" element={<SkillPageSkeleton/>}></Route>
             <Route path="/roadMapDashBoard" element = {<RoadMapDashBoardPage />}></Route>
             <Route path="/Page404" element = {<Page404 />}></Route>

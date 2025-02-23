@@ -58,10 +58,7 @@ const userSchema = new mongoose.Schema({
     type : String,
     default : ""
   },
-  questions : {
-    type : [questionSchema,],
-    default : []
-  },
+
   roadMaps : {
     type : [roadMapSchema,],
     default : []

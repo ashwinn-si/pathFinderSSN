@@ -34,7 +34,7 @@ function RoadMapPage() {
       setRoadmapData(prevData =>
           prevData.map(item =>
               item.id === id
-                  ? {...item, status: item.status === "completed" ? "upcoming" : "completed"}
+                  ? {...item, status: item.status === "completed" ? "uncompleted" : "completed"}
                   : item
           )
       );
