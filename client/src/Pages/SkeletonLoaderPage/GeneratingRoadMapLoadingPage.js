@@ -3,11 +3,14 @@ import Loader from "../../Components/Loader";
 import SkeletonLoader from "../../Components/SkeletonLoader";
 import {useEffect} from "react";
 import api from "./../../AxiosProvider"
+import {useNavigate} from "react-router-dom";
 
 function GeneratingRoadMapLoadingPage(){
+    const navigate = useNavigate();
     useEffect(()=>{
         api.get("/api/roadMapGeneration/generateRoadMap").then((response) => {
-            console.log(response.data);
+            const roadMapID = response.data.roadMapID;
+            navigate("/roadmap/"+roadMapID);
         })
     },[])
     return(

@@ -16,6 +16,7 @@ function RoadMapPage() {
 
     useEffect(() => {
             axios.get(`/api/user/roadmap/roadmapGetDetails?roadMapID=${roadMapID}`).then((response) => {
+                console.log(roadMapID)
                 const data = response.data[0];
                 console.log(data)
                 setRoadMapName(data.skillName)
@@ -51,6 +52,7 @@ function RoadMapPage() {
 
     setHeader(roadmapData[index].title);
     setDescription(roadmapData[index].description);
+
     setReasourcesLink(roadmapData[index].links);
   };
   
@@ -83,15 +85,15 @@ function RoadMapPage() {
           :
 
       <div className="w-full max-w-4xl mx-auto p-8 custom-FontFamily ">
-          <button className=" btn btn-outline btn-accent  absolute top-4 left-5 z-[11] border border-solid border-1" onClick={handlePageClose} >
+          <button className=" btn btn-outline btn-accent  fixed top-4 left-5 z-[11] border border-solid border-1" onClick={handlePageClose} >
               Back
           </button>
-      <div className="bg-base-200 rounded-xl p-8 shadow-xl  border">
+      <div className="bg-base-200 rounded-xl p-8 shadow-xl  border relative">
         <div className="mb-10 text-center">
           <h1 className="text-3xl font-bold text-base-content mb-2">{roadMapName} Roadmap</h1>
         </div>
 
-        <div className="hidden md:block absolute left-1/2 top-32 bottom-20 w-1 bg-base-content/20 -translate-x-1/2 z-0"></div>
+        <div className="hidden md:block absolute left-1/2 top-32 bottom-20 w-1 h-[95%] bg-base-content/20 -translate-x-1/2 z-0"></div>
 
         <div className="relative z-10">
           {roadmapData.map((item, index) => (

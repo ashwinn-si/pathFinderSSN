@@ -14,101 +14,19 @@ const roadMapUpdateController = require("./../controller/userControllers/roadMap
 
 router.get("/getDetails",verifyToken,availableRoadMapController)
 
-router.post("/add",async (req,res)=>{
-    const email = "siashwin2005@gmail.com"
-    const user = await userModel.findOne({email})
-    const date = getDate()
-    const id = getID();
-    const roadMap = {
-        roadMapID : id,
-        skillName : "Problem Solving",
-        dateOfCreation : date,
-        modules : [
-            {
-                title : "ashwin si",
-                description : "is a good boy",
-                links : [
-                    {
-                        topic : "intro 1",
-                        link :"ytts asdsada"
-                    },{
-                        topic :"intro 2",
-                        link : "ytts asdsd"
-                    },
-                    {
-                        topic:"intro 3",
-                        link :"ytts adsda"
-                    }
-                ]
-            },{
-                title : "ashwin si",
-                description : "is a good boy",
-                links : [
-                    {
-                        topic : "intro 1",
-                        link :"ytts asdsada"
-                    },{
-                        topic :"intro 2",
-                        link : "ytts asdsd"
-                    },
-                    {
-                        topic:"intro 3",
-                        link :"ytts adsda"
-                    }
-                ]
-            },
-            {
-                title : "ashwin si",
-                description : "is a good boy",
-                links : [
-                    {
-                        topic : "intro 1",
-                        link :"ytts asdsada"
-                    },{
-                        topic :"intro 2",
-                        link : "ytts asdsd"
-                    },
-                    {
-                        topic:"intro 3",
-                        link :"ytts adsda"
-                    }
-                ]
-            },
-            {
-                title : "ashwin si",
-                description : "is a good boy",
-                links : [
-                    {
-                        topic : "intro 1",
-                        link :"ytts asdsada"
-                    },{
-                        topic :"intro 2",
-                        link : "ytts asdsd"
-                    },
-                    {
-                        topic:"intro 3",
-                        link :"ytts adsda"
-                    }
-                ]
-            }
-        ]
-
-    }
-    user.roadMaps.push(roadMap)
-    await user.save();
-    res.status(200).json({message : "user saved successfully"});
-})
-
 router.get("/roadmapGetDetails",verifyToken,roadMapDetailsGetter)
 
 router.post("/update",verifyToken,roadMapUpdateController)
 
-router.post("/delete",async(req,res) =>{
-    const email = "siashwin2005@gmail.com"
+router.delete("/delete",verifyToken,async(req,res) =>{
+    const email = req.user.email;
+    const roadMapID = parseInt(req.query.roadMapID);
     const user = await userModel.findOne({email})
-    user.roadMaps=[]
+    const newRoadMap = await user.roadMaps.filter((map) => map.roadMapID !== roadMapID)
+    console.log(newRoadMap)
+    user.roadMaps = newRoadMap
     await user.save()
-    res.send(user);
+    res.send(200);
 })
 
 module.exports = router

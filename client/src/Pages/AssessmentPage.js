@@ -13,32 +13,43 @@ function AssessmentPage(props) {
     const [selectedAnswer, setSelectedAnswer] = useState('');
     const [topicIndex, setTopicIndex] = useState(0);
     const [questionNumber, setQuestionNumber] = useState(1);
+    const [correctAnswer, setCorrectAnswer] = useState(0);
     const [totalTopics, setTotalTopics] = useState(null);
-    const [noQuestions, setNoQuestions] = useState(5);
+    const [noQuestions, setNoQuestions] = useState(3);
+    const [nextQuestion, setNextQuestion] = useState(0);
 
     const generateFirstQuestion = () =>{
         axios.get(`/api/questionGeneration/firstQuestion?topicIndex=${topicIndex}`).then((response) => {
             const formatedQuestion = questionFormater(response.data);
+            console.log("question: "+formatedQuestion.question+"\nanswer: "+formatedQuestion.answer.text);
             setOptions(formatedQuestion.options)
-            console.log("new topic")
-            console.log(formatedQuestion);
             setQuestion(formatedQuestion.question);
         }).catch((error) => {
 
             navigate("/Page404")
-        }).finally(() => setLoaderFlag(false));
+        }).finally(() => setTimeout(()=> { setLoaderFlag(false) },1000));
     }
 
 
     function testCaseHandling(){
+        setLoaderFlag(true);
         axios.get("/api/questionGeneration/questionGenerate?topicIndex="+topicIndex).then((res2) => {
             const nextQuestion = questionFormater(res2.data);
-            console.log(nextQuestion);
             setOptions(nextQuestion.options)
             setQuestion(nextQuestion.question);
             setQuestionNumber(prevState => prevState+1);
+        }).then((response) => {
+            setLoaderFlag(false);
         })
     }
+
+    useEffect(() => {
+        if(options.length == 0){
+            testCaseHandling();
+        }else{
+            setQuestionNumber(prevState => prevState+1);
+        }
+    },[options]);
 
     function generateNextQuestion(){
         const userAnswer = options.filter(option => option.id === selectedAnswer)[0].text;
@@ -49,21 +60,16 @@ function AssessmentPage(props) {
         }).then((res1)=>{
             axios.get("/api/questionGeneration/questionGenerate?topicIndex="+topicIndex).then((res2) => {
                 const nextQuestion = questionFormater(res2.data);
-                console.log(nextQuestion);
+                setQuestion(nextQuestion.question);
                 setOptions(nextQuestion.options)
-                if(options.length === 0){
-                    testCaseHandling();
-                }else{
-                    setQuestion(nextQuestion.question);
-                    setQuestionNumber(prevState => prevState+1);
-                }
-
             })
         }).catch((error) => {
             if(error.response.status === 401){
                 navigate("/Page404")
             }
-        })
+        }).finally(() =>
+            setTimeout(()=> { setLoaderFlag(false) },1000)
+        );
     }
     useEffect(() => {
         if(topicIndex !== 0){
@@ -88,8 +94,6 @@ function AssessmentPage(props) {
             }
         }catch(error){
             navigate("/Page404")
-        }finally{
-            setLoaderFlag(false);
         }
     }
 
