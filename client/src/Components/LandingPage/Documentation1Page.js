@@ -193,7 +193,7 @@ function Documentation1Page(){
                         className="w-full h-full bg-base-100 bg-opacity-50 rounded-lg p-2 md:p-4 border-[1px] border-primary flex flex-col justify-evenly items-center overflow-hidden">
                         <motion.p className="text-xl md:text-2xl lg:text-3xl font-[800] text-primary hover:tracking-wider transition-all duration-300 mb-4 cursor-pointer" variants={itemVariants} whileInView="visible" initial="hidden"
                            exit="exit">
-                            Set your Goal <span className="text-secondary">-</span> Take the Test  <span className="text-secondary">-</span>  Follow the map
+                            YOUR SKILLS <span className="text-secondary">-</span> YOUR MAP <span className="text-secondary">-</span> YOUR FUTURE
                         </motion.p>
                     </motion.div>
                 </motion.div>

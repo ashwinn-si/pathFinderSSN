@@ -1,7 +1,6 @@
 import { GoArrowRight } from "react-icons/go";
 
 function RoadMapSeparatePage({header, description, reasourcesLink}){
-    console.log(reasourcesLink)
     return (
         <div className="w-full max-w-4xl mx-auto p-8 custom-FontFamily">
             <div className="bg-base-200 rounded-xl p-8 shadow-xl relative border">
@@ -26,7 +25,7 @@ function RoadMapSeparatePage({header, description, reasourcesLink}){
                             <GoArrowRight className="text-primary min-w-[16px] md:min-w-[20px]" />
                             <p className="text-sm md:text-base lg:text-lg  cursor-pointer w-full text-left font-[600]">
                             <span className="font-[700] text-secondary">{item.topic} - </span>
-                                <a href={item.link} target="_blank"> reasource</a>
+                                <a href={item.link} target="_blank" className="cursor-pointer"> resources Link</a>
                             </p>
                         </div>
                     ))

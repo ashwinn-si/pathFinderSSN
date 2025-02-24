@@ -42,7 +42,7 @@ function RoadMapDashBoardPage() {
     }
 
     const openDelete = (index) =>{
-        axios.delete(`/api/user/roadmap/delete?email=${availableRoadMaps[index].roadMapID}`).then((response) => {
+        axios.delete(`/api/user/roadmap/delete?roadMapID=${availableRoadMaps[index].roadMapID}`).then((response) => {
             if(response.status === 200){
                 getRoadMaps()
             }
@@ -57,7 +57,7 @@ function RoadMapDashBoardPage() {
             </button>
             {
                 loaderFlag ?
-                    <RoadMapPageSkeleton />
+                    <RoadMapPageSkeleton header = "Getting your RoadMapss...!"/>
                     :
                     <div className="w-[350px] lg:w-[700px] min-h-[300px] px-5 py-5 bg-base-300 rounded-lg border-2 border-solid border-neutral shadow-primary shadow-[0_0_5px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-opacity-85 custom-FontFamily  ">
 
@@ -66,7 +66,7 @@ function RoadMapDashBoardPage() {
                             {
                                 availableRoadMaps.length > 0 ?
                                     availableRoadMaps.map((roadmap,index) => (
-                                        <div className="flex items-center justify-between w-90 border-primary border-2 py-4 px-4 rounded-xl" key={index}>
+                                        <div className="flex items-center justify-between w-90 border-secondary border-2 py-4 px-4 rounded-xl" key={index}>
                                             <div className="flex items-center gap-3">
                                                 <Map className="w-6 h-6 lg:w-8 lg:h-8 text-purple-400" />
                                                 <div>
@@ -88,7 +88,7 @@ function RoadMapDashBoardPage() {
                                         </div>
                                     )) : null
                             }
-                            <div className="flex items-center justify-between w-90 border-primary border-2 py-4 px-4 rounded-xl" >
+                            <div className="flex items-center justify-between w-90 border-secondary  border-2 py-4 px-4 rounded-xl" >
                                 <div className="flex items-center gap-3">
                                     <Map className="w-6 h-6 lg:w-8 lg:h-8 text-purple-400" />
                                     <div>

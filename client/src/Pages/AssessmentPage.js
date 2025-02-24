@@ -131,7 +131,7 @@ function AssessmentPage(props) {
                                      key={option.id}
                                      className={`flex items-center p-4 rounded-lg cursor-pointer transition-all duration-200
                               ${selectedAnswer === option.id
-                                         ? 'bg-primary/10 border-primary'
+                                         ? 'bg-secondary/10 border-secondary'
                                          : 'bg-base-100 hover:bg-base-200'
                                      } border-2`}
                                  >

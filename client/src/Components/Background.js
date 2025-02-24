@@ -127,7 +127,7 @@ const Background = ({
         };
     }, [direction, speed, borderColor, hoverFillColor, hoveredSquare, squareSize]);
 
-    return <canvas ref={canvasRef} className="w-full h-full border-none block"></canvas>;
+    return <canvas ref={canvasRef} className="min-w-full min-h-full border-none block"></canvas>;
 };
 
 export default Background;

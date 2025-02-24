@@ -23,7 +23,7 @@ function HeroPage() {
                         minFontSize={100}
                     />
                     <p className="custom-FontFamily text-2xl mt-4 text-center text-primary font-[600]">
-                        Your Roadmap to Success, One Step at a Time!!
+                        YOUR SKILLS - YOUR MAP - YOUR FUTURE
                     </p>
                     <div className="flex items-center justify-evenly mt-4">
                         <Link to="/login">
